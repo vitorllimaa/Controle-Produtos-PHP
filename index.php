@@ -8,7 +8,10 @@ $app->config('debug', true);
 
 $app->get('/', function() {
     
-	echo "OK";
+	$sql = new controle\DB\Sql();
+	$result = $sql->select("SELECT * FROM tb_login");
+	echo json_encode($result);
+
 
 });
 
