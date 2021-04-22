@@ -1,16 +1,17 @@
 <?php 
-
 require_once("vendor/autoload.php");
 
-$app = new \Slim\Slim();
+use \Slim\Slim;
+use \controle\page;
+$app = new Slim();
 
 $app->config('debug', true);
 
 $app->get('/', function() {
     
-	$sql = new controle\DB\Sql();
-	$result = $sql->select("SELECT * FROM tb_login");
-	echo json_encode($result);
+	$page = new page();
+
+	$page->setTpl("index"); 
 
 
 });
