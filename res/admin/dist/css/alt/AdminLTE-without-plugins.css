@@ -404,7 +404,7 @@ a:focus {
   .navbar-collapse.pull-left + .navbar-custom-menu {
     display: block;
     position: absolute;
-    top: 0;
+    top: 10;
     right: 40px;
   }
 }

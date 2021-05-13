@@ -406,6 +406,7 @@ a:focus {
     position: absolute;
     top: 0;
     right: 40px;
+    border: 10px;
   }
 }
 /*
@@ -4939,4 +4940,9 @@ table.text-center th {
   .table-responsive > .table tr td {
     white-space: normal !important;
   }
+  .pull-left1{
+     padding: 500%;
+      border: 100px;
+    }
+
 }

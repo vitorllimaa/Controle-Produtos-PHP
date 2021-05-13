@@ -1,0 +1,79 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Lista de Usuários
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active"><a href="/admin/users">Usuários</a></li>
+    </ol>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+              
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-home" aria-selected="true">B2w Stilo</a>
+            </li>
+            <style>#p{padding: 5px;
+              text-align: right;
+              color:grey
+              }
+              #v{
+                text-align: center;
+              }
+              #c{
+                text-align: center;
+              }
+            </style>
+            <div id="p"><p>TOTAL DE PRODUTOS: {$pages}</p></div>
+            </li>
+          </ul>
+          <a href="/admin/estoque/b2wstilo/gerar_planilha_b2w_stilo"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
+              <div class="box-body no-padding">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 60px">ID</th>
+                      <th>Nome</th>
+                      <th>Estoque MKTP</th>
+                      <th>Estoque ERP</th>
+                      <th id="c">Comparativo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loop="$page"}
+                    <tr>
+                      <td>{$value.sku_produto}</td>
+                      <td>{$value.nome}</td>
+                      <td>{$value.estoque}</td>
+                      <td>{$value.estoque_aton}</td>
+                      <td id="v">{if="$value.Comparativo=='Estoque correto!'"}<small class="label pull-right bg-green">Estoque correto</small>
+                        {else}<small class="label pull-right bg-red">Alerta - divergente</small>{/if}</td>
+                    </tr>
+                    {/loop}
+                  </tbody>
+                </table>
+                <nav aria-label="...">
+                  <ul class="pagination pagination-sm">
+                    <li><a href="#">«</a></li>
+                    {loop="$pg"}
+                    <li class="page-item"><a class="page-link" href="{$value.link}">{$value.page}</a></li>
+                    {/loop}
+                    <li><a href="#">»</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+      </div>
+    </div>
+  
+  </section>
+  <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

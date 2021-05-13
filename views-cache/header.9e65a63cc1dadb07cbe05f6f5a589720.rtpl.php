@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin StiloEletro</title>
+  <title>Admin Produtos</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -25,11 +25,11 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/res/admin/starter.html" class="logo">
+    <a href="/admin" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>DM</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b></span>
+      <span class="logo-lg"><b>Admin</b> Produtos</span>
     </a>
 
     <!-- Header Navbar -->
@@ -75,7 +75,7 @@
               <!-- The user image in the navbar-->
               <img src="/res/admin/dist/img/anonimo.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Rafael leite</span>
+              <span class="hidden-xs">Vitor - Suporte</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -83,7 +83,7 @@
                 <img src="/res/admin/dist/img/anonimo.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Rafael Leite - CEO
+                  Vitor lima - Suporte
                   <small></small>
                 </p>
               </li>
@@ -120,3 +120,100 @@
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="/res/admin/dist/img/anonimo.png" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>Vitor - Suporte</p>
+              <!-- Status -->
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+    
+          <!-- search form (Optional) -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Pesquisar...">
+                  <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                    </button>
+                  </span>
+            </div>
+          </form>
+          <!-- /.search form -->
+    
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">Menu</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li class="active"><a href="/admin/users"><i class="fa fa-th-list"></i> <span>Cadastro de Usuário</span></a></li>
+            <li><a href="#"><i class="fa fa-table"></i> <span>Lista de produtos ERP</span></a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-indent"></i> <span>Lista de produtos dos MKTP</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" id="mktp">
+                <li><a href="/admin/product">B2w Stilo</a></li>
+                <li><a href="/admin/product/b2wclick">B2w Click</a></li>
+                <li><a href="/admin/product/magalustilo">Magalu Stilo</a></li>
+                <li><a href="/admin/product/magaluclick">Magalu Click</a></li>
+                <li><a href="/admin/product/mlclick/importar">Importação Mercado Livre Click</a></li>
+                <li><a href="/admin/product/mlclick">Mercado Livre Click</a></li>
+                <li><a href="#"></a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-bar-chart"></i> <span>Validação de produtos</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="treeview active">
+                  <a href="#">
+                    <i class="fa fa-share"></i><span>Estoque</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu menu-open" style="display: none;">
+                    <li><a href="/admin/estoquestilo"><i class="fa fa-circle-o"></i>Importar Planilha Stilo</a></li>
+                    <li><a href="/admin/estoqueclick"><i class="fa fa-circle-o"></i>Importar Planilha Click</a></li>
+                    <li><a href="/admin/estoque/b2wstilo"><i class="fa fa-circle-o"></i>B2W Stilo</a></li>
+                    <li><a href="/admin/estoque/b2wclick"><i class="fa fa-circle-o"></i>B2w Click</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
+                  </ul>
+                </li>
+                <li class="treeview active">
+                  <a href="#">
+                    <i class="fa fa-share"></i> <span>Preço</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu menu-open" style="display: none;">
+                    <li><a href="/admin/estoquestilo"><i class="fa fa-circle-o"></i>Importar Planilha Stilo</a></li>
+                    <li><a href="/admin/estoqueclick"><i class="fa fa-circle-o"></i>Importar Planilha Click</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>B2W Stilo</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>B2w Click</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+      </aside>

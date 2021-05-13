@@ -59,7 +59,7 @@
     </form>
     <!-- /.social-auth-links -->
 
-    <a href="#">Esqueci a minha senha</a><br>
+    <a href="/admin/forgot">Esqueci a minha senha</a><br>
 
   </div>
   <!-- /.login-box-body -->

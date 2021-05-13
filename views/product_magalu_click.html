@@ -1,0 +1,70 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Lista de Usuários
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active"><a href="/admin/users">Usuários</a></li>
+    </ol>
+  </section>
+  
+  <!-- Main content -->
+  <section class="content">
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+              
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-home" aria-selected="true">Magalu click</a>
+            </li>
+            </li>
+          </ul>
+          <div class="box-header">
+            <a href="/admin/product/magaluclick/update" class="btn btn-success">Atulizar Produtos</a>
+          </div>
+              <div class="box-body no-padding">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 60px">ID</th>
+                      <th>Nome</th>
+                      <th>Preço</th>
+                      <th>Quantidade</th>
+                      <th>Data da busca produto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loop="$page1"}
+                    <tr>
+                      <td>{$value.IdSku}</td>
+                      <td>{$value.Name}</td>
+                      <td>{$value.Price.SalePrice}</td>
+                      <td>{$value.StockQuantity}</td>
+                      <td>{$datenow}</td>
+                      <td>
+                        <fieldset type="form" class="btn btn-success">Produto Atualizado</fieldset>
+                        </td>
+                    </tr>
+                    {/loop}
+                  </tbody>
+                </table>
+                <nav aria-label="...">
+                  <ul class="pagination pagination-sm">
+                    {loop="$pages"}
+                    <li class="page-item"><a class="page-link" href="{$value.link}">{$value.page}</a></li>
+                    {/loop}
+                  </ul>
+                </nav>
+              </div>
+            </div>
+      </div>
+    </div>
+  
+  </section>
+  <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
