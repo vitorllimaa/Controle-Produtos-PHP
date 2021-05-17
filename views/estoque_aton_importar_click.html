@@ -29,7 +29,7 @@
             onchange="$('#upload-file-info').text(this.files[0].name)"> 
             Importar Excel 
         </label>
-        <button type="submit" class="btn btn-primary btn-sm btn-success">Enviar</button>
+        <button type="submit" onclick="return confirm('Deseja enviar o arquivo?')" class="btn btn-primary btn-sm btn-success">Enviar</button>
         <span class='label label-info' id="upload-file-info"></span>
       </form>
       <p>Importar como Planilha XML 2003(*.XML)</p>

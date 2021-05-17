@@ -18,7 +18,7 @@
               
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-home" aria-selected="true">B2w Click</a>
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-home" aria-selected="true">B2w Stilo</a>
             </li>
             <style>#p{padding: 5px;
               text-align: right;
@@ -34,7 +34,7 @@
             <div id="p"><p>TOTAL DE PRODUTOS: <?php echo htmlspecialchars( $pages, ENT_COMPAT, 'UTF-8', FALSE ); ?></p></div>
             </li>
           </ul>
-          <a href="/admin/estoque/b2wstilo/gerar_planilha_b2w_click"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
+          <a href="/admin/preco/b2wstilo/gerar_planilha_b2w_stilo"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
               <div class="box-body no-padding">
                 <table class="table table-striped">
                   <thead>
@@ -42,8 +42,8 @@
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
                       <th>Comercializado</th>
-                      <th>Estoque MKTP</th>
-                      <th>Estoque ERP</th>
+                      <th>Preço MKTP</th>
+                      <th>Preço ERP</th>
                       <th id="c">Comparativo</th>
                     </tr>
                   </thead>
@@ -54,9 +54,9 @@
                       <td><?php echo htmlspecialchars( $value1["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td id="v"><?php if( $value1["status"]=='linked' ){ ?><small class="label pull-right bg-olive">Integrado</small>
                         <?php }else{ ?><small class="label pull-right bg-orange">Recusado</small><?php } ?></td> 
-                      <td><?php echo htmlspecialchars( $value1["estoque"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                      <td><?php echo htmlspecialchars( $value1["estoque_aton"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>   
-                      <td id="v"><?php if( $value1["Comparativo"]=='Estoque correto!' ){ ?><small class="label pull-right bg-green">Estoque correto</small>
+                      <td><?php echo htmlspecialchars( $value1["preco"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <td><?php echo htmlspecialchars( $value1["preco_venda"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>   
+                      <td id="v"><?php if( $value1["Comparativo"]=='Preço correto!' ){ ?><small class="label pull-right bg-green">Preço correto</small>
                         <?php }else{ ?><small class="label pull-right bg-red">Alerta - divergente</small><?php } ?></td>
                     </tr>
                     <?php } ?>

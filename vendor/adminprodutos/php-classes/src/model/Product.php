@@ -38,7 +38,7 @@ class product{
 
         public static function updateb2wStilo(){
             
-                for($i=0; $i<2; $i++){
+            for($i=0; $i<99; $i++){
             ob_start();
             $email = 'contato@stiloeletro.com.br';
             $pass = 'uEK5MypMq6ecUENYwmxy';
@@ -55,6 +55,7 @@ class product{
             $array = json_decode($resposta, true);
             $products = $array["products"];
 
+            if(!(count($products) === 0)){
             foreach($products as $value){
                 $sku = ($value["sku"]);
                 $nome = ($value["name"]);
@@ -88,6 +89,7 @@ class product{
             } 
             
             } 
+        }
             $sql = new Sql();
             $result = $sql->select("SELECT sku_produto FROM tb_b2w_stilo");
             foreach($result as $value){
@@ -136,78 +138,79 @@ class product{
             } 
 
             public static function updateb2wClick(){
-            
-                for($i=0; $i<2; $i++){
-                ob_start();
-                $email = 'comercial@click24.com.br';
-                $pass = 'ZuPoArr5Bygveofen24U';
-                $pass64x = 'WnVQb0FycjVCeWd2ZW9mZW4yNFU=';
-                $ch = curl_init();
-                curl_setopt( $ch, CURLOPT_URL, 'https://api.skyhub.com.br/products?page='.$i.'&per_page=99'); 
-                curl_setopt( $ch, CURLOPT_HEADER, 0 );
-                curl_setopt( $ch, CURLOPT_HTTPHEADER, array('X-User-Email:'.$email,'X-Api-Key:'.$pass,'X-Accountmanager-Key:'.$pass64x) );
-                curl_exec( $ch );
-                $resposta = ob_get_contents();
-                ob_end_clean();
-                $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-                curl_close( $ch );
-                $array = json_decode($resposta, true);
-                $products = $array["products"];
-
-                foreach($products as $value){
-                    $sku = ($value["sku"]);
-                    $nome = ($value["name"]);
-                    $preco = ($value["promotional_price"]);
-                    $qtd = ($value["qty"]);
-                    $status = ($value["associations"][0]["status"]);
-
-                    $sql = new Sql();
-                    $consul = $sql->select("SELECT * FROM tb_b2w_click WHERE sku_produto = :sku",array(
-                        ":sku"=>$sku
-                    ));
-
-                    if(count($consul) === 0){
-                        $sql->select("INSERT INTO tb_b2w_click VALUES(NULL, :sku, :nome, :preco, :qtd, null, :status)",array(
-                            ":sku"=>$sku,
-                            ":nome"=>$nome,
-                            ":preco"=>$preco,
-                            ":qtd"=>$qtd,
-                            ":status"=>$status
+                for($i=0; $i<99; $i++){
+                    ob_start();
+                    $email = 'comercial@click24.com.br';
+                    $pass = 'ZuPoArr5Bygveofen24U';
+                    $pass64x = 'WnVQb0FycjVCeWd2ZW9mZW4yNFU=';
+                    $ch = curl_init();
+                    curl_setopt( $ch, CURLOPT_URL, 'https://api.skyhub.com.br/products?page='.$i.'&per_page=99'); 
+                    curl_setopt( $ch, CURLOPT_HEADER, 0 );
+                    curl_setopt( $ch, CURLOPT_HTTPHEADER, array('X-User-Email:'.$email,'X-Api-Key:'.$pass,'X-Accountmanager-Key:'.$pass64x) );
+                    curl_exec( $ch );
+                    $resposta = ob_get_contents();
+                    ob_end_clean();
+                    $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+                    curl_close( $ch );
+                    $array = json_decode($resposta, true);
+                    $products = $array["products"];
+        
+                    if(!empty($products)){
+                    foreach($products as $value){
+                        $sku = ($value["sku"]);
+                        $nome = ($value["name"]);
+                        $preco = ($value["promotional_price"]);
+                        $qtd = ($value["qty"]);
+                        if(!empty($value["associations"][0]) || !empty($value["associations"])){
+                        $status = ($value["associations"][0]["status"]);
+                    }else{$qtd = null;}
+                    
+                        $sql = new Sql();
+                        $consul = $sql->select("SELECT * FROM tb_b2w_click WHERE sku_produto = :sku",array(
+                            ":sku"=>$sku
                         ));
-
-                    }else{
-                        $sql->select("UPDATE tb_b2w_click SET nome = :name, preco = :preco, estoque = :qtd, status = :status WHERE sku_produto = :sku",array(
-                            ":sku"=>$sku,
-                            ":name"=>$nome,
-                            ":preco"=>$preco,
-                            ":qtd"=>$qtd,
-                            ":status"=>$status
-                        ));
-                    }
-                } 
-                
-                }  
-                $sql = new Sql();
-                $result = $sql->select("SELECT sku_produto FROM tb_b2w_click");
-                foreach($result as $value){
-                $value = $value["sku_produto"];
-                if(strpos($value, '-')){
-                    $sku = explode('-', $value);
-                    $sql->select("UPDATE tb_b2w_click SET sku = :sku WHERE sku_produto = :id_produto",array(
-                        ":id_produto"=>$value,
-                        ":sku"=>$sku[0]
-                    ));  
-                }else{
-                    $sql->select("UPDATE tb_b2w_click SET sku = :sku WHERE sku_produto = :id_produto",array(
-                        ":id_produto"=>$value,
-                        ":sku"=>$value
-
-                    ));     
+        
+                        if(count($consul) === 0){
+                            $sql->select("INSERT INTO tb_b2w_click VALUES(NULL, :sku, :nome, :preco, :qtd, NULL, :status)",array(
+                                ":sku"=>$sku,
+                                ":nome"=>$nome,
+                                ":preco"=>$preco,
+                                ":qtd"=>$qtd,
+                                ":status"=>$status
+                            ));
+        
+                        }else{
+                            $sql->select("UPDATE tb_b2w_click SET nome = :nome, preco = :preco, estoque = :qtd, status = :status WHERE sku_produto = :sku",array(
+                                ":sku"=>$sku,
+                                ":nome"=>$nome,
+                                ":preco"=>$preco,
+                                ":qtd"=>$qtd,
+                                ":status"=>$status
+                            ));
+                        }
+                    } 
                 }
-                
-            } 
-                
-                
+                    
+                    } 
+                    $sql = new Sql();
+                    $result = $sql->select("SELECT sku_produto FROM tb_b2w_click");
+                    foreach($result as $value){
+                        $value = $value["sku_produto"];
+                        if(strpos($value, '-')){
+                            $sku = explode('-', $value);
+                            $sql->select("UPDATE tb_b2w_click SET sku = :sku WHERE sku_produto = :sku_produto",array(
+                                ":sku_produto"=>$value,
+                                ":sku"=>$sku[0]
+                            ));  
+                        }else{
+                            $sql->select("UPDATE tb_b2w_click SET sku = :sku WHERE sku_produto = :sku_produto",array(
+                                ":sku_produto"=>$value,
+                                ":sku"=>$value
+        
+                            ));     
+                        }
+                        
+                    }                    
 
             }    
 
@@ -269,104 +272,102 @@ class product{
         } 
 
         public static function updatemagalustilo(){
+            $page = [];
+            $sku = [];
+            $allSku = [];
+            $arrayList = [];
+                for($i=1; $i<90; $i++){ 
+            ob_start();
+            $user = 'stiloeletroapi';
+            $pass = '2017164G50';
+            $ch = curl_init();
+            curl_setopt( $ch, CURLOPT_URL, "https://api.integracommerce.com.br/api/Product?page=".$i."&perPage=99" ); 
+            curl_setopt( $ch, CURLOPT_HEADER, 0 );
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode( $user . ':' . $pass ) ) );
+            curl_exec( $ch );
+            $resposta = ob_get_contents();
+            ob_end_clean();
+            $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+            curl_close( $ch );
 
-        $page = [];
-        $sku = [];
-        $allSku = [];
-        $arrayList = [];
-            /* for($i=1; $i<90; $i++){ */
-        /* ob_start();
-        $user = 'stiloeletroapi';
-        $pass = '2017164G50';
-        $ch = curl_init();
-        curl_setopt( $ch, CURLOPT_URL, "https://api.integracommerce.com.br/api/Product?page=".$i."&perPage=1" ); 
-        curl_setopt( $ch, CURLOPT_HEADER, 0 );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode( $user . ':' . $pass ) ) );
-        curl_exec( $ch );
-        $resposta = ob_get_contents();
-        ob_end_clean();
-        $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-        curl_close( $ch );
-
-        header("Content-Type: text/html; charset=utf8");
-        $pages = json_decode($resposta, true);
-        if(!(count($pages["Products"]) === 0)){
-            array_push($page, $pages["Products"][0]);
-            foreach($page as $key => $value){
-            $sql = new Sql();
-                $consul = $sql->select("SELECT * FROM tb_magalu_stilo WHERE id_produto = :sku",array(
-                    ":sku"=>$value["Code"]
-                ));  
-                if(count($consul) === 0){
-                    $sql->select("INSERT INTO tb_magalu_stilo VALUES(NULL, :sku, null, null, null, null)",array(
-                        ":sku"=>$value["Code"]
-                    ));
-                } 
-        }
-        } } */
-            
-        $sql = new Sql();
-        $result = $sql->select("SELECT id_produto FROM tb_magalu_stilo");
-            foreach($result as $key => $value){
-        ob_start();
-        $user = 'stiloeletroapi';
-        $pass = '2017164G50';
-
-        $ch = curl_init();
-        curl_setopt( $ch, CURLOPT_URL, 'https://api.integracommerce.com.br/api/Sku/'.$value["id_produto"]); 
-        curl_setopt( $ch, CURLOPT_HEADER, 0 );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode( $user . ':' . $pass ) ) );
-        curl_exec( $ch );
-        $resposta = ob_get_contents();
-        ob_end_clean();
-        $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-        curl_close( $ch );
-
-        header("Content-Type: text/html; charset=utf8");
-        $resp = json_decode($resposta, true);
-        if(!($resp === 'Sku não encontrado')){
-                $skus = ($resp["IdSku"]);
-                $nome = ($resp["Name"]);
-                $preco = ($resp["Price"]["SalePrice"]);
-                $qtd = ($resp["StockQuantity"]);
-
+            header("Content-Type: text/html; charset=utf8");
+            $pages = json_decode($resposta, true);
+            if(!(count($pages["Products"]) === 0)){
+                array_push($page, $pages["Products"][0]);
+                foreach($page as $key => $value){
                 $sql = new Sql();
-                $consul = $sql->select("SELECT * FROM tb_magalu_stilo WHERE id_produto = :sku",array(
-                    ":sku"=>$skus
-                ));
-                 
-                $sql->select("UPDATE tb_magalu_stilo SET id_produto = :sku, nome = :name, preco = :preco, estoque = :qtd WHERE id_produto = :sku",array(
-                        ":sku"=>$skus,
-                        ":name"=>$nome,
-                        ":preco"=>$preco,
-                        ":qtd"=>$qtd
-                    ));
+                    $consul = $sql->select("SELECT * FROM tb_magalu_stilo WHERE id_produto = :sku",array(
+                        ":sku"=>$value["Code"]
+                    ));  
+                    if(count($consul) === 0){
+                        $sql->select("INSERT INTO tb_magalu_stilo VALUES(NULL, :sku, null, null, null, null)",array(
+                            ":sku"=>$value["Code"]
+                        ));
+                    } 
+            }
+            } } 
                 
-            
-            
-        }
-
-        } 
-            /* } */
             $sql = new Sql();
             $result = $sql->select("SELECT id_produto FROM tb_magalu_stilo");
-            foreach($result as $value){
-                $value = $value["id_produto"];
-            if(strpos($value, '-')){
-                $sku = explode('-', $value);
-                $sql->select("UPDATE tb_magalu_stilo SET sku = :sku WHERE id_produto = :sku_produto",array(
-                    ":sku_produto"=>$value,
-                    ":sku"=>$sku[0]
-                ));  
-            }else{
-                $sql->select("UPDATE tb_magalu_stilo SET sku = :sku WHERE id_produto = :sku_produto",array(
-                    ":sku_produto"=>$value,
-                    ":sku"=>$value
+                foreach($result as $key => $value){
+            ob_start();
+            $user = 'stiloeletroapi';
+            $pass = '2017164G50';
 
-                ));     
+            $ch = curl_init();
+            curl_setopt( $ch, CURLOPT_URL, 'https://api.integracommerce.com.br/api/Sku/'.$value["id_produto"]); 
+            curl_setopt( $ch, CURLOPT_HEADER, 0 );
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode( $user . ':' . $pass ) ) );
+            curl_exec( $ch );
+            $resposta = ob_get_contents();
+            ob_end_clean();
+            $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+            curl_close( $ch );
+
+            header("Content-Type: text/html; charset=utf8");
+            $resp = json_decode($resposta, true);
+            if(!($resp === 'Sku não encontrado')){
+                    $skus = ($resp["IdSku"]);
+                    $nome = ($resp["Name"]);
+                    $preco = ($resp["Price"]["SalePrice"]);
+                    $qtd = ($resp["StockQuantity"]);
+
+                    $sql = new Sql();
+                    $consul = $sql->select("SELECT * FROM tb_magalu_stilo WHERE id_produto = :sku",array(
+                        ":sku"=>$skus
+                    ));
+                    
+                    $sql->select("UPDATE tb_magalu_stilo SET id_produto = :sku, nome = :name, preco = :preco, estoque = :qtd WHERE id_produto = :sku",array(
+                            ":sku"=>$skus,
+                            ":name"=>$nome,
+                            ":preco"=>$preco,
+                            ":qtd"=>$qtd
+                        ));
+                    
+                
+                
             }
-            
-        }   
+
+            } 
+                $sql = new Sql();
+                $result = $sql->select("SELECT id_produto FROM tb_magalu_stilo");
+                foreach($result as $value){
+                    $value = $value["id_produto"];
+                if(strpos($value, '-')){
+                    $sku = explode('-', $value);
+                    $sql->select("UPDATE tb_magalu_stilo SET sku = :sku WHERE id_produto = :sku_produto",array(
+                        ":sku_produto"=>$value,
+                        ":sku"=>$sku[0]
+                    ));  
+                }else{
+                    $sql->select("UPDATE tb_magalu_stilo SET sku = :sku WHERE id_produto = :sku_produto",array(
+                        ":sku_produto"=>$value,
+                        ":sku"=>$value
+
+                    ));     
+                }
+                
+            }    
 
 
 
@@ -438,11 +439,11 @@ class product{
             $allSku = [];
             $arrayList = [];
                 for($i=1; $i<90; $i++){ 
-             ob_start();
+            ob_start();
             $user = 'click24api';
             $pass = 'ScvjSHljAXpBMgOBd-wL';
             $ch = curl_init();
-            curl_setopt( $ch, CURLOPT_URL, "https://api.integracommerce.com.br/api/Product?page=".$i."&perPage=1" ); 
+            curl_setopt( $ch, CURLOPT_URL, "https://api.integracommerce.com.br/api/Product?page=".$i."&perPage=99" ); 
             curl_setopt( $ch, CURLOPT_HEADER, 0 );
             curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode( $user . ':' . $pass ) ) );
             curl_exec( $ch );
@@ -450,7 +451,7 @@ class product{
             ob_end_clean();
             $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
             curl_close( $ch );
-    
+
             header("Content-Type: text/html; charset=utf8");
             $pages = json_decode($resposta, true);
             if(!(count($pages["Products"]) === 0)){
@@ -474,7 +475,7 @@ class product{
             ob_start();
             $user = 'click24api';
             $pass = 'ScvjSHljAXpBMgOBd-wL';
-    
+
             $ch = curl_init();
             curl_setopt( $ch, CURLOPT_URL, 'https://api.integracommerce.com.br/api/Sku/'.$value["id_produto"]); 
             curl_setopt( $ch, CURLOPT_HEADER, 0 );
@@ -484,7 +485,7 @@ class product{
             ob_end_clean();
             $httpCode = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
             curl_close( $ch );
-    
+
             header("Content-Type: text/html; charset=utf8");
             $resp = json_decode($resposta, true);
             if(!($resp === 'Sku não encontrado')){
@@ -492,12 +493,12 @@ class product{
                     $nome = ($resp["Name"]);
                     $preco = ($resp["Price"]["SalePrice"]);
                     $qtd = ($resp["StockQuantity"]);
-    
+
                     $sql = new Sql();
                     $consul = $sql->select("SELECT * FROM tb_magalu_click WHERE id_produto = :sku",array(
                         ":sku"=>$skus
                     ));
-                     
+                    
                     $sql->select("UPDATE tb_magalu_click SET id_produto = :sku, nome = :name, preco = :preco, estoque = :qtd WHERE id_produto = :sku",array(
                             ":sku"=>$skus,
                             ":name"=>$nome,
@@ -508,9 +509,8 @@ class product{
                 
                 
             }
-    
+
             } 
-                /* } */
                 $sql = new Sql();
                 $result = $sql->select("SELECT id_produto FROM tb_magalu_click");
                 foreach($result as $value){
@@ -525,13 +525,11 @@ class product{
                     $sql->select("UPDATE tb_magalu_click SET sku = :sku WHERE id_produto = :sku_produto",array(
                         ":sku_produto"=>$value,
                         ":sku"=>$value
-    
+
                     ));     
                 }
                 
-            }   
-    
-
+            }  
 
         }
 
@@ -570,7 +568,7 @@ class product{
         $consul = $sql->select("SELECT mlb FROM tb_mlclick");
             foreach($consul as $value){
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.mercadolibre.com/items?ids='.$value,
+            CURLOPT_URL => 'https://api.mercadolibre.com/items?ids='.$value["mlb"],
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -579,7 +577,7 @@ class product{
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer APP_USR-4353001852101296-051212-f52ac59686a523202d458926bd5cde6e-645921558'
+            'Authorization: Bearer APP_USR-4353001852101296-051420-6e1e26202af3fab13c0989975ccbf3fa-645921558'
             ),
         ));
 
@@ -627,7 +625,7 @@ class product{
             
 
 
-}
+    }
 
 
-?>
+    ?>

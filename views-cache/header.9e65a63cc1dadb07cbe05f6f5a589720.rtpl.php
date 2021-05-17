@@ -152,7 +152,6 @@
             <li class="header">Menu</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="/admin/users"><i class="fa fa-th-list"></i> <span>Cadastro de Usuário</span></a></li>
-            <li><a href="#"><i class="fa fa-table"></i> <span>Lista de produtos ERP</span></a></li>
             <li class="treeview">
               <a href="#"><i class="fa fa-indent"></i> <span>Lista de produtos dos MKTP</span>
                 <span class="pull-right-container">
@@ -160,12 +159,12 @@
                 </span>
               </a>
               <ul class="treeview-menu" id="mktp">
-                <li><a href="/admin/product">B2w Stilo</a></li>
-                <li><a href="/admin/product/b2wclick">B2w Click</a></li>
-                <li><a href="/admin/product/magalustilo">Magalu Stilo</a></li>
-                <li><a href="/admin/product/magaluclick">Magalu Click</a></li>
-                <li><a href="/admin/product/mlclick/importar">Importação Mercado Livre Click</a></li>
-                <li><a href="/admin/product/mlclick">Mercado Livre Click</a></li>
+                <li><a href="/admin/product"><i class="fa fa-circle-o"></i>B2w Stilo</a></li>
+                <li><a href="/admin/product/b2wclick"><i class="fa fa-circle-o"></i>B2w Click</a></li>
+                <li><a href="/admin/product/magalustilo"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
+                <li><a href="/admin/product/magaluclick"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
+                <li><a href="/admin/product/mlclick/importar"><i class="fa fa-file-excel-o"></i>Importação Mercado Livre Click</a></li>
+                <li><a href="/admin/product/mlclick"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
                 <li><a href="#"></a></li>
               </ul>
             </li>
@@ -184,13 +183,13 @@
                     </span>
                   </a>
                   <ul class="treeview-menu menu-open" style="display: none;">
-                    <li><a href="/admin/estoquestilo"><i class="fa fa-circle-o"></i>Importar Planilha Stilo</a></li>
-                    <li><a href="/admin/estoqueclick"><i class="fa fa-circle-o"></i>Importar Planilha Click</a></li>
+                    <li><a href="/admin/estoquestilo"><i class="fa fa-file-excel-o"></i>Importar Planilha Stilo</a></li>
+                    <li><a href="/admin/estoqueclick"><i class="fa fa-file-excel-o"></i>Importar Planilha Click</a></li>
                     <li><a href="/admin/estoque/b2wstilo"><i class="fa fa-circle-o"></i>B2W Stilo</a></li>
                     <li><a href="/admin/estoque/b2wclick"><i class="fa fa-circle-o"></i>B2w Click</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
+                    <li><a href="/admin/estoque/magalustilo"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
+                    <li><a href="/admin/estoque/magaluclick"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
+                    <li><a href="/admin/estoque/mlclick"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
                   </ul>
                 </li>
                 <li class="treeview active">
@@ -201,17 +200,18 @@
                     </span>
                   </a>
                   <ul class="treeview-menu menu-open" style="display: none;">
-                    <li><a href="/admin/estoquestilo"><i class="fa fa-circle-o"></i>Importar Planilha Stilo</a></li>
-                    <li><a href="/admin/estoqueclick"><i class="fa fa-circle-o"></i>Importar Planilha Click</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>B2W Stilo</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>B2w Click</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
+                    <li><a href="/admin/precostilo"><i class="fa fa-file-excel-o"></i>Importar Planilha Stilo</a></li>
+                    <li><a href="/admin/precoclick"><i class="fa fa-file-excel-o"></i>Importar Planilha Click</a></li>
+                    <li><a href="/admin/preco/b2wstilo"><i class="fa fa-circle-o"></i>B2W Stilo</a></li>
+                    <li><a href="/admin/preco/b2wclick"><i class="fa fa-circle-o"></i>B2w Click</a></li>
+                    <li><a href="/admin/preco/magalustilo"><i class="fa fa-circle-o"></i>Magalu Stilo</a></li>
+                    <li><a href="/admin/preco/magaluclick"><i class="fa fa-circle-o"></i>Magalu Click</a></li>
+                    <li><a href="/admin/preco/mlclick"><i class="fa fa-circle-o"></i>Mercado Livre Click</a></li>
                   </ul>
                 </li>
               </ul>
             </li>
+            <li><a href="#"><i class="fa fa-table"></i> <span>Lista de produtos ERP</span></a></li>
           </ul>
           <!-- /.sidebar-menu -->
         </section>

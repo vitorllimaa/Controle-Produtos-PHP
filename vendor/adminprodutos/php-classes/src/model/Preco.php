@@ -11,9 +11,9 @@ use PDO;
 use PDOException;
 use PDORow;
 
-class estoque{
-    //upload do estoque do aton
-    public static function uploadEstoqueStilo($planilha){
+class Preco{
+
+    public static function uploadPrecoStilo($planilha){
 
         if(!empty($planilha["tmp_name"])){
             $arquivo = new DOMDocument();
@@ -24,21 +24,22 @@ class estoque{
             foreach($linhas as $value){
                 if($primeiralinha == false){
                 $sku = $value->getElementsByTagName("Data")->item(0)->nodeValue;
-                $estoque = $value->getElementsByTagName("Data")->item(1)->nodeValue;
+                $preco = $value->getElementsByTagName("Data")->item(1)->nodeValue;
+                $preco = $preco*(1);
                      $sql = new Sql();
-                     $consul = $sql->select("SELECT * FROM tb_aton_estoque_stilo WHERE id_produto = :sku",array(
+                     $consul = $sql->select("SELECT * FROM tb_aton_preco_stilo WHERE id_produto = :sku",array(
                          ":sku"=>$sku
                      ));
                      if(count($consul) === 0){
-                        $sql->select("INSERT INTO tb_aton_estoque_stilo VALUES(NULL, :sku, :estoque)",array(
+                        $sql->select("INSERT INTO tb_aton_preco_stilo VALUES(NULL, :sku, :preco)",array(
                             ":sku"=>$sku,
-                            ":estoque"=>$estoque
+                            ":preco"=>$preco
                         ));
     
                      }else{
-                        $sql->select("UPDATE tb_aton_estoque_stilo SET estoque_aton = :estoque where id_produto = :sku",array(
+                        $sql->select("UPDATE tb_aton_preco_stilo SET preco_venda = :preco where id_produto = :sku",array(
                             ":sku"=>$sku,
-                            ":estoque"=>$estoque
+                            ":preco"=>$preco
                         ));
                     } } 
                     $primeiralinha = false;
@@ -48,7 +49,7 @@ class estoque{
 
     }
 
-    public static function uploadEstoqueClick($planilha){
+    public static function uploadPrecoClick($planilha){
 
         if(!empty($planilha["tmp_name"])){
             $arquivo = new DOMDocument();
@@ -59,60 +60,61 @@ class estoque{
             foreach($linhas as $value){
                 if($primeiralinha == false){
                 $sku = $value->getElementsByTagName("Data")->item(0)->nodeValue;
-                $estoque = $value->getElementsByTagName("Data")->item(1)->nodeValue;
+                $preco = $value->getElementsByTagName("Data")->item(1)->nodeValue;
                      $sql = new Sql();
-                     $consul = $sql->select("SELECT * FROM tb_aton_estoque_click WHERE id_produto = :sku",array(
+                     $consul = $sql->select("SELECT * FROM tb_aton_preco_click WHERE id_produto = :sku",array(
                          ":sku"=>$sku
                      ));
                      if(count($consul) === 0){
-                        $sql->select("INSERT INTO tb_aton_estoque_click VALUES(NULL, :sku, :estoque)",array(
+                        $sql->select("INSERT INTO tb_aton_preco_click VALUES(NULL, :sku, :preco)",array(
                             ":sku"=>$sku,
-                            ":estoque"=>$estoque
+                            ":preco"=>$preco
                         ));
     
                      }else{
-                        $sql->select("UPDATE tb_aton_estoque_click SET estoque_aton = :estoque where id_produto = :sku",array(
+                        $sql->select("UPDATE tb_aton_preco_click SET preco_venda = :preco where id_produto = :sku",array(
                             ":sku"=>$sku,
-                            ":estoque"=>$estoque
+                            ":preco"=>$preco
                         ));
                     } } 
                     $primeiralinha = false;
                 }  
     
                      }
+
 
     }
     //paginação b2w
-    public static function estoqueb2wstilo($page = 1, $itensporpage = 200){
+    public static function precob2wstilo($page = 1, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
 
         $sql = new Sql();
-        $resutl = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto order by nome asc
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_b2w_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto order by nome asc
         limit $start, $itensporpage",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
         $valor = ($resulttotal[0]["NRTOTAL"]);
          return[
-        'data'=>$resutl,
+        'data'=>$result,
         'total'=>(int)$resulttotal[0]["NRTOTAL"],
         'pages'=>ceil($valor/$itensporpage)+1
          ];
 
     }
 
-    public static function estoqueb2wclick($page = 1, $itensporpage = 200){
+    public static function precob2wclick($page = 1, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
 
         $sql = new Sql();
-        $resutl = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto order by nome asc
+        $resutl = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_b2w_click a inner join tb_aton_preco_click b on a.sku = b.id_produto order by nome asc
         limit $start, $itensporpage",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -125,9 +127,9 @@ class estoque{
 
     }
     //gerar planilha excel b2w
-    public static function gerarPlanilhab2wstilo(){
+    public static function gerarPlanilhaPrecob2wstilo(){
 
-        $arquivo = 'Estoque_B2wStilo.xls';
+        $arquivo = 'Preço_B2wStilo.xls';
         $html = '';
         $html .= '<table border="1">';
 
@@ -135,16 +137,16 @@ class estoque{
         $html .= '<td><b>ID</b></td>';
         $html .= '<td><b>Nome</b></td>';
         $html .= '<td><b>Comercializado</b></td>';
-        $html .= '<td><b>Estoque MKTP</b></td>';
-        $html .= '<td><b>Estoque ERP</b></td>';
+        $html .= '<td><b>Preço MKTP</b></td>';
+        $html .= '<td><b>Preço ERP</b></td>';
         $html .= '<td><b>Comparativo</b></td>';
         $html .= '</tr>';
         
         $sql = new Sql();
-        $result = $sql->select("SELECT * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto order by nome asc",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_b2w_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto order by nome asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         foreach($result as $value){
@@ -153,8 +155,8 @@ class estoque{
             $html .= '<td>'.$value["sku_produto"].'</td>';
             $html .= '<td>'.$value["nome"].'</td>';
             $html .= '<td>'.$status.'</td>';
-            $html .= '<td>'.$value["estoque"].'</td>';
-            $html .= '<td>'.$value["estoque_aton"].'</td>';
+            $html .= '<td>'.$value["preco"].'</td>';
+            $html .= '<td>'.$value["preco_venda"].'</td>';
             $html .= '<td>'.$value["Comparativo"].'</td>';
             $html .= '</tr>';}
 
@@ -171,9 +173,9 @@ class estoque{
         exit;
     }
 
-    public static function gerarPlanilhab2wclick(){
+    public static function gerarPlanilhaPrecob2wclick(){
 
-        $arquivo = 'Estoque_B2wClick.xls';
+        $arquivo = 'Preço_B2wClick.xls';
         $html = '';
         $html .= '<table border="1">';
 
@@ -181,16 +183,16 @@ class estoque{
         $html .= '<td><b>ID</b></td>';
         $html .= '<td><b>Nome</b></td>';
         $html .= '<td><b>Comercializado</b></td>';
-        $html .= '<td><b>Estoque MKTP</b></td>';
-        $html .= '<td><b>Estoque ERP</b></td>';
+        $html .= '<td><b>Preço MKTP</b></td>';
+        $html .= '<td><b>Preço ERP</b></td>';
         $html .= '<td><b>Comparativo</b></td>';
         $html .= '</tr>';
         
         $sql = new Sql();
-        $result = $sql->select("SELECT * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto order by nome asc",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_b2w_click a inner join tb_aton_preco_click b on a.sku = b.id_produto order by nome asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         foreach($result as $value){
@@ -199,8 +201,8 @@ class estoque{
         $html .= '<td>'.$value["sku_produto"].'</td>';
         $html .= '<td>'.$value["nome"].'</td>';
         $html .= '<td>'.$status.'</td>';
-        $html .= '<td>'.$value["estoque"].'</td>';
-        $html .= '<td>'.$value["estoque_aton"].'</td>';
+        $html .= '<td>'.$value["preco"].'</td>';
+        $html .= '<td>'.$value["preco_venda"].'</td>';
         $html .= '<td>'.$value["Comparativo"].'</td>';
         $html .= '</tr>';}
 
@@ -217,16 +219,15 @@ class estoque{
         exit;
     }
     //paginação magalu
-    public static function estoqueMagalustilo($page = 1, $itensporpage = 200){
+    public static function precoMagalustilo($page = 1, $itensporpage = 200){    
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
-        $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_magalu_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto order by nome asc
-        limit 1, 30;",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_magalu_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto order by nome asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -239,16 +240,15 @@ class estoque{
 
     }
 
-    public static function estoqueMagaluclick($page = 1, $itensporpage = 200){
+    public static function precoMagaluclick($page = 1, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
-        $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_magalu_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto order by nome asc
-        limit 1, 30;",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_magalu_click a inner join tb_aton_preco_click b on a.sku = b.id_produto order by nome asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -261,33 +261,33 @@ class estoque{
 
     }
     //gerar planilha excel Magalu
-    public static function gerarPlanilhaMaglustilo(){
+    public static function gerarPlanilhaPrecoMaglustilo(){
 
-        $arquivo = 'Estoque_MagaluStilo.xls';
+        $arquivo = 'Preço_MagaluStilo.xls';
         $html = '';
         $html .= '<table border="1">';
 
         $html .= '<tr>';
         $html .= '<td><b>ID</b></td>';
         $html .= '<td><b>Nome</b></td>';
-        $html .= '<td><b>Estoque MKTP</b></td>';
-        $html .= '<td><b>Estoque ERP</b></td>';
+        $html .= '<td><b>Preço MKTP</b></td>';
+        $html .= '<td><b>Preço ERP</b></td>';
         $html .= '<td><b>Comparativo</b></td>';
         $html .= '</tr>';
         
         $sql = new Sql();
-        $result = $sql->select("SELECT * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_magalu_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto order by nome asc",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_magalu_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto order by nome asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         foreach($result as $value){
         $html .= '<tr>';
         $html .= '<td>'.$value["id_produto"].'</td>';
         $html .= '<td>'.$value["nome"].'</td>';
-        $html .= '<td>'.$value["estoque"].'</td>';
-        $html .= '<td>'.$value["estoque_aton"].'</td>';
+        $html .= '<td>'.$value["preco"].'</td>';
+        $html .= '<td>'.$value["preco_venda"].'</td>';
         $html .= '<td>'.$value["Comparativo"].'</td>';
         $html .= '</tr>';}
 
@@ -304,23 +304,23 @@ class estoque{
         exit;
     }
     //gerar planilha excel Magalu
-    public static function gerarPlanilhaMagluclick(){
+    public static function gerarPlanilhaPrecoMagluclick(){
 
-            $arquivo = 'Estoque_MagaluClick.xls';
+            $arquivo = 'Preço_MagaluClick.xls';
             $html = '';
             $html .= '<table border="1">';
     
             $html .= '<tr>';
             $html .= '<td><b>ID</b></td>';
             $html .= '<td><b>Nome</b></td>';
-            $html .= '<td><b>Estoque MKTP</b></td>';
-            $html .= '<td><b>Estoque ERP</b></td>';
+            $html .= '<td><b>Preço MKTP</b></td>';
+            $html .= '<td><b>Preço ERP</b></td>';
             $html .= '<td><b>Comparativo</b></td>';
             $html .= '</tr>';
             
             $sql = new Sql();
-            $result = $sql->select("SELECT * , if(estoque = estoque_aton, :v, :f) as Comparativo
-            FROM tb_magalu_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto order by nome asc",array(
+            $result = $sql->select("SELECT * , if(preco = preco_venda, :v, :f) as Comparativo
+            FROM tb_magalu_click a inner join tb_aton_preco_click b on a.sku = b.id_produto order by nome asc",array(
                 ":v"=>"Estoque correto!",
                 ":f"=>"Estoque divergente!"
             ));
@@ -329,8 +329,8 @@ class estoque{
             $html .= '<tr>';
             $html .= '<td>'.$value["id_produto"].'</td>';
             $html .= '<td>'.$value["nome"].'</td>';
-            $html .= '<td>'.$value["estoque"].'</td>';
-            $html .= '<td>'.$value["estoque_aton"].'</td>';
+            $html .= '<td>'.$value["preco"].'</td>';
+            $html .= '<td>'.$value["preco_venda"].'</td>';
             $html .= '<td>'.$value["Comparativo"].'</td>';
             $html .= '</tr>';}
     
@@ -347,15 +347,15 @@ class estoque{
             exit;
     }
     //paginação mercado livre click
-    public static function estoqueMlclcik($page = 1, $itensporpage = 200){
+    public static function precoMlclcik($page = 1, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
-        $result = $sql->select("SELECT sql_calc_found_rows * , if(qtd = estoque_aton, :v, :f) as Comparativo
-        FROM tb_mlclick a inner join tb_aton_estoque_click b on a.id_produto = b.id_produto order by name asc",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto order by name asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -368,9 +368,9 @@ class estoque{
 
     }
     //gerar planilha excel Magalu
-    public static function gerarPlanilhaMlclick(){
+    public static function gerarPlanilhaPrecoMlclick(){
 
-        $arquivo = 'Estoque_MlClick.xls';
+        $arquivo = 'Preço_MlClick.xls';
         $html = '';
         $html .= '<table border="1">';
 
@@ -378,16 +378,16 @@ class estoque{
         $html .= '<td><b>ID</b></td>';
         $html .= '<td><b>MLB</b></td>';
         $html .= '<td><b>Nome</b></td>';
-        $html .= '<td><b>Estoque MKTP</b></td>';
-        $html .= '<td><b>Estoque ERP</b></td>';
+        $html .= '<td><b>Preço MKTP</b></td>';
+        $html .= '<td><b>Preço ERP</b></td>';
         $html .= '<td><b>Comparativo</b></td>';
         $html .= '</tr>';
         
         $sql = new Sql();
-        $result = $sql->select("SELECT sql_calc_found_rows * , if(qtd = estoque_aton, :v, :f) as Comparativo
-        FROM tb_mlclick a inner join tb_aton_estoque_click b on a.id_produto = b.id_produto order by name asc",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto order by name asc",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
         ));
 
         foreach($result as $value){
@@ -395,8 +395,8 @@ class estoque{
         $html .= '<td>'.$value["id_produto"].'</td>';
         $html .= '<td>'.$value["mlb"].'</td>';
         $html .= '<td>'.$value["name"].'</td>';
-        $html .= '<td>'.$value["qtd"].'</td>';
-        $html .= '<td>'.$value["estoque_aton"].'</td>';
+        $html .= '<td>'.$value["preco"].'</td>';
+        $html .= '<td>'.$value["preco_venda"].'</td>';
         $html .= '<td>'.$value["Comparativo"].'</td>';
         $html .= '</tr>';}
 
@@ -412,7 +412,20 @@ class estoque{
 
         exit;
 }
-//file:///C:/Users/vitor/OneDrive/%C3%81rea%20de%20Trabalho/Template/AdminLTE-master/pages/search/enhanced.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

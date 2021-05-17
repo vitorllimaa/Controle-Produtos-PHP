@@ -18,7 +18,7 @@
               
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-home" aria-selected="true">B2w Stilo</a>
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-home" aria-selected="true">B2w Click</a>
             </li>
             <style>#p{padding: 5px;
               text-align: right;
@@ -34,7 +34,7 @@
             <div id="p"><p>TOTAL DE PRODUTOS: {$pages}</p></div>
             </li>
           </ul>
-          <a href="/admin/estoque/b2wstilo/gerar_planilha_b2w_stilo"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
+          <a href="/admin/preco/b2wclick/gerar_planilha_b2w_click"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
               <div class="box-body no-padding">
                 <table class="table table-striped">
                   <thead>
@@ -42,8 +42,8 @@
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
                       <th>Comercializado</th>
-                      <th>Estoque MKTP</th>
-                      <th>Estoque ERP</th>
+                      <th>Preço MKTP</th>
+                      <th>Preço ERP</th>
                       <th id="c">Comparativo</th>
                     </tr>
                   </thead>
@@ -54,9 +54,9 @@
                       <td>{$value.nome}</td>
                       <td id="v">{if="$value.status=='linked'"}<small class="label pull-right bg-olive">Integrado</small>
                         {else}<small class="label pull-right bg-orange">Recusado</small>{/if}</td> 
-                      <td>{$value.estoque}</td>
-                      <td>{$value.estoque_aton}</td>   
-                      <td id="v">{if="$value.Comparativo=='Estoque correto!'"}<small class="label pull-right bg-green">Estoque correto</small>
+                      <td>{$value.preco}</td>
+                      <td>{$value.preco_venda}</td>   
+                      <td id="v">{if="$value.Comparativo=='Preço correto!'"}<small class="label pull-right bg-green">Preço correto</small>
                         {else}<small class="label pull-right bg-red">Alerta - divergente</small>{/if}</td>
                     </tr>
                     {/loop}

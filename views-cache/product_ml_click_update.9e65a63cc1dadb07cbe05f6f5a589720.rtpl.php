@@ -23,7 +23,14 @@
             </li>
           </ul>
           <div class="box-header">
-            <div class="alert alert-success" role="alert">Produtos Atualizados! :D</div>  
+            <a href="/admin/product/mlclick/update" class="btn btn-success">Atulizar Produtos</a>
+          </div>
+          <div class="box-header">
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h4><i class="icon fa fa-check"></i> Atualizado!</h4>
+              Atualização dos Produtos realizada com Sucesso! :)
+            </div>
           </div>
       <div class="box-body no-padding">
         <table class="table table-striped">

@@ -35,12 +35,13 @@
             </li>
           </ul>
           <a href="/admin/estoque/b2wstilo/gerar_planilha_b2w_click"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
-          <div class="box-body no-padding">
+              <div class="box-body no-padding">
                 <table class="table table-striped">
                   <thead>
                     <tr>
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
+                      <th>Comercializado</th>
                       <th>Estoque MKTP</th>
                       <th>Estoque ERP</th>
                       <th id="c">Comparativo</th>
@@ -49,10 +50,12 @@
                   <tbody>
                     {loop="$page"}
                     <tr>
-                      <td>{$value.id_produto}</td>
+                      <td>{$value.sku_produto}</td>
                       <td>{$value.nome}</td>
+                      <td id="v">{if="$value.status=='linked'"}<small class="label pull-right bg-olive">Integrado</small>
+                        {else}<small class="label pull-right bg-orange">Recusado</small>{/if}</td> 
                       <td>{$value.estoque}</td>
-                      <td>{$value.estoque_aton}</td>
+                      <td>{$value.estoque_aton}</td>   
                       <td id="v">{if="$value.Comparativo=='Estoque correto!'"}<small class="label pull-right bg-green">Estoque correto</small>
                         {else}<small class="label pull-right bg-red">Alerta - divergente</small>{/if}</td>
                     </tr>

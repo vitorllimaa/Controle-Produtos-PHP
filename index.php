@@ -8,6 +8,7 @@ use \controle\login;
 use \controle\model\User;
 use \controle\model\product;
 use \controle\model\estoque;
+use \controle\model\Preco;
 
 $app = new Slim();
 
@@ -356,6 +357,7 @@ $app->post("/admin/estoquestilo", function(){
 	User::verifyLogin();
 	$page = new pageadmin();
 	$pages = estoque::uploadEstoqueStilo($_FILES['arquivo']);
+	
 	header("Location: /admin/estoquestilo");
 	exit;
 });
@@ -376,7 +378,6 @@ $app->post("/admin/estoqueclick", function(){
 	header("Location: /admin/estoqueclick");
 	exit;
 });
-
 
 $app->get("/admin/estoque/b2wstilo", function(){
 	
@@ -431,6 +432,267 @@ $app->get("/admin/estoque/b2wstilo/gerar_planilha_b2w_click", function(){
 	
 	User::verifyLogin();
 	$excel = estoque::gerarPlanilhab2wclick();
+
+});
+
+$app->get("/admin/estoque/magalustilo", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = estoque::estoqueMagalustilo($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/estoque/magalustilo'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("estoque_magalu_stilo",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/estoque/magaluclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = estoque::estoqueMagaluclick($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/estoque/magaluclick'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("estoque_magalu_click",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/estoque/magalustilo/gerar_planilha_magalu_stilo", function(){
+	
+	User::verifyLogin();
+	$excel = estoque::gerarPlanilhaMaglustilo();
+
+});
+
+$app->get("/admin/estoque/magalustilo/gerar_planilha_magalu_click", function(){
+	
+	User::verifyLogin();
+	$excel = estoque::gerarPlanilhaMagluclick();
+
+});
+
+$app->get("/admin/estoque/mlclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = estoque::estoqueMlclcik($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/estoque/mlclick'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("estoque_ml_click",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/estoque/mlclick/gerar_planilha_ml_click", function(){
+	
+	User::verifyLogin();
+	$excel = estoque::gerarPlanilhaMlclick();
+
+});
+
+$app->get("/admin/precostilo", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$page->setTpl("preco_aton_importar_stilo");
+
+});
+
+$app->post("/admin/precostilo", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pages = Preco::uploadPrecoStilo($_FILES['arquivo']);
+	
+	header("Location: /admin/precostilo");
+	exit;
+});
+
+$app->get("/admin/precoclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$page->setTpl("preco_aton_importar_click");
+
+});
+
+$app->post("/admin/precoclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pages = Preco::uploadPrecoClick($_FILES['arquivo']);
+	
+	header("Location: /admin/precoclick");
+	exit;
+});
+
+$app->get("/admin/preco/b2wstilo", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = Preco::precob2wstilo($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/preco/b2wstilo'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("preco_b2w_stilo",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/preco/b2wclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = Preco::precob2wclick($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/preco/b2wclick'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+
+	$page->setTpl("preco_b2w_click",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/preco/b2wstilo/gerar_planilha_b2w_stilo", function(){
+	
+	User::verifyLogin();
+	$excel = Preco::gerarPlanilhaPrecob2wstilo();
+
+});
+
+$app->get("/admin/preco/b2wclick/gerar_planilha_b2w_click", function(){
+	
+	User::verifyLogin();
+	$excel = Preco::gerarPlanilhaPrecob2wclick();
+
+});
+
+$app->get("/admin/preco/magalustilo", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = Preco::precoMagalustilo($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/preco/magalustilo'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("preco_magalu_stilo",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/preco/magaluclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = Preco::precoMagaluclick($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/preco/magaluclick'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("preco_magalu_click",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/preco/magalustilo/gerar_planilha_magalu_stilo", function(){
+	
+	User::verifyLogin();
+	$excel = Preco::gerarPlanilhaPrecoMaglustilo();
+
+});
+
+$app->get("/admin/preco/magalustilo/gerar_planilha_magalu_click", function(){
+	
+	User::verifyLogin();
+	$excel = Preco::gerarPlanilhaPrecoMagluclick();
+
+});
+
+$app->get("/admin/preco/mlclick", function(){
+	
+	User::verifyLogin();
+	$page = new pageadmin();
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$pages = preco::precoMlclcik($pg);
+    $paginas = [];
+	for($i=1; $i<$pages['pages']; $i++){
+		array_push($paginas,  [
+			'link'=>'/admin/preco/mlclick'.'?page='.$i,
+			'page'=>$i
+		]);
+	}
+	$page->setTpl("preco_ml_click",[
+		'page'=>$pages['data'],
+		'pages'=>$pages['total'],
+		'pg'=>$paginas
+	]);
+
+});
+
+$app->get("/admin/preco/mlclick/gerar_planilha_ml_click", function(){
+	
+	User::verifyLogin();
+	$excel = preco::gerarPlanilhaPrecoMlclick();
 
 });
 

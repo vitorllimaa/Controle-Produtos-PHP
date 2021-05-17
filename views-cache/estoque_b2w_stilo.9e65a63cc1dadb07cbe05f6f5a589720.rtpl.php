@@ -41,6 +41,7 @@
                     <tr>
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
+                      <th>Comercializado</th>
                       <th>Estoque MKTP</th>
                       <th>Estoque ERP</th>
                       <th id="c">Comparativo</th>
@@ -51,8 +52,10 @@
                     <tr>
                       <td><?php echo htmlspecialchars( $value1["sku_produto"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <td id="v"><?php if( $value1["status"]=='linked' ){ ?><small class="label pull-right bg-olive">Integrado</small>
+                        <?php }else{ ?><small class="label pull-right bg-orange">Recusado</small><?php } ?></td> 
                       <td><?php echo htmlspecialchars( $value1["estoque"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                      <td><?php echo htmlspecialchars( $value1["estoque_aton"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <td><?php echo htmlspecialchars( $value1["estoque_aton"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>   
                       <td id="v"><?php if( $value1["Comparativo"]=='Estoque correto!' ){ ?><small class="label pull-right bg-green">Estoque correto</small>
                         <?php }else{ ?><small class="label pull-right bg-red">Alerta - divergente</small><?php } ?></td>
                     </tr>
