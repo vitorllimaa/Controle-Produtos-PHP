@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'af3a5c7034f9e07acda0c44eebb9b37ca9a2e907',
     'name' => 'vitorllima/controleprodutos',
   ),
   'versions' => 
@@ -40,12 +40,12 @@
     ),
     'vitorllima/controleprodutos' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'af3a5c7034f9e07acda0c44eebb9b37ca9a2e907',
     ),
   ),
 );

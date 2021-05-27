@@ -30,12 +30,25 @@
               #c{
                 text-align: center;
               }
+              #m{
+                border: 10%;
+                position: absolute;
+                top: auto;
+                left: 90%;
+              }
             </style>
             <div id="p"><p>TOTAL DE PRODUTOS: {$pages}</p></div>
             </li>
           </ul>
           <a href="/admin/preco/mlclick/gerar_planilha_ml_click"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
-              <div class="box-body no-padding">
+            <select id="m" class="form-controll">
+              <option selected="selected">Alabama</option>
+              <option>Teste1</option>
+              <option>Teste2</option>
+              <option>Teste3</option>
+              <option>Teste4</option>
+            </select>
+          <div class="box-body no-padding">
                 <table class="table table-striped">
                   <thead>
                     <tr>

@@ -10,7 +10,8 @@ class User extends Model {
     const SESSION = "User";
     const SECRET = "Maiscommerce2021";
     const SECRET_IV = "Maiscommerce2021_IV";
-    public static function login($login, $password){
+    
+    public function login($login, $password){
     
         $sql = new Sql();
         $result = $sql->select("SELECT * FROM tb_login WHERE login = :LOGIN", array(
@@ -31,13 +32,14 @@ class User extends Model {
             $user->setData($data);
 
             $_SESSION[User::SESSION] =  $user->getValues();
-            
+            $this->value = $user;
             return $user;
-
+            
         }else{
             
             throw new \Exception("Usuário ou senha não encontrado."); 
         }
+        
     }
 
     public static function verifyLogin($adm = true){
@@ -88,16 +90,17 @@ class User extends Model {
         ));
         $this->setData($result[0]);
     }
-    public function update($id_login){
+
+    public function update($id_login, $value){
 
         $sql = new Sql();
-
-        $sql->select("UPDATE tb_login SET nome = :nome, login = :login, telefone = :telefone, email = :email WHERE id_login = $id_login",array(
-            ":nome"=>$this->getname(),
-            ":login"=>$this->getlogin(),
-            ":telefone"=>$this->gettelefone(),
-            ":email"=>$this->getemail()
-        ));
+           $sql->query("UPDATE tb_login SET nome = :nome, login = :login, telefone = :telefone, email = :email WHERE id_login = :id_login",array(
+                ":id_login"=>$id_login,
+                ":nome"=>$value["name"],
+                ":email"=>$value["email"],
+                ":login"=>$value["login"],
+                ":telefone"=>$value["telefone"]
+            ));
 
     }
 
@@ -193,6 +196,14 @@ class User extends Model {
 
         return $result1[0];
 
+    }
+
+    public function getName(){
+        $array = [];
+        foreach($_SESSION as $key => $value){
+            array_push($array, $value);
+        }
+    return($array[1]["nome"]);
     }
 }
 
