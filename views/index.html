@@ -1,7 +1,21 @@
   <!-- Content Wrapper. Contains page content -->
   <style>
+    #content{
+      width: 500px;
+      padding: 10px;
+    }
+    .porcentagem{
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      transform: translate(-200px, 10px);
+    width: 890px;
+    }
+    .progress-sm{
+      background-color: var(--gray);
+    }
     .col-lg-3, .col-6{
-    padding-right: 0px;
+    padding-right: 10px;
     padding-left: 10px;
     }
     .col-lg-3 {
@@ -125,83 +139,7 @@ html {
         <li class="active">Aqui</li>
       </ol>
     </section>
-    <div class="row">
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font>{$MagaluStilo}</font></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Magalu<br> com Pendencias</font></font></p>
-          </div>
-          <div class="icon">
-            <i class="ion-alert-circled"></i>
-          </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Stilo Eletro</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success"id="VV">
-          <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font><sup style="font-size: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></sup></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Via Varejo<br> com Pendencias</font></font></p>
-          </div>
-          <div class="icon">
-            <i class="ion-alert-circled "></i>
-          </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Stilo Eletro</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-          <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Mercado Livre<br> com Pendencias</font></font></p>
-          </div>
-          <div class="icon">
-            <i class="ion-alert-circled"></i>
-          </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Stilo Eletro</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-          <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{$b2wStilo}</font></font></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos B2W<br> com Pendencias</font></font></p>
-          </div>
-          <div class="icon">
-            <i class="ion-alert-circled"></i>
-          </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Stilo Eletro</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success" id="Shopee">
-          <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0 </font></font><sup style="font-size: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">%</font></font></sup></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Shopee<br> com Pendencias</font></font></p>
-          </div>
-          <div class="icon">
-            <i class="ion-alert-circled "></i>
-          </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Stilo Eletro</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-    </div>
-
+   
     <div class="row">
       <div class="col-lg-3 col-6">
         <!-- small box -->
@@ -278,8 +216,6 @@ html {
       </div>
       <!-- ./col -->
     </div>
-
-    
 
     <div class="card">
       <div class="card-header border-0">
@@ -383,9 +319,156 @@ html {
     </div>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" id="content">
 
-      <!-- Your Page Content Here -->
+      <div class="porcentagem">
+        <p class="text-center">
+          <strong>Estoque</strong>
+        </p>
+        B2w Stilo
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$b2wStilo}</b>/{$b2wStilot}</span>
+          <div class="progress progress-sm" id="b2wStilo">
+            <script>
+              let s = ({$b2wStilo}/{$b2wStilot}*100);
+              console.warn();
+              const v = document.querySelector("#b2wStilo");
+              let f = `<div class="progress-bar bg-primary" style="width: `+parseInt(s)+`%;background-color: #1bc5ac;"></div>`;
+              v.innerHTML = f;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+       
+        B2w click
+        <div class="progress-group">
+          Estoque com Pendecias B2w Click
+          <span class="float-right"><b>{$b2wClick}</b>/{$b2wClickt}</span>
+          <div class="progress progress-sm" id="b2wClick">
+            <script>
+              let vbc= ({$b2wClick}/{$b2wClickt}*100);
+              const sbc = document.querySelector("#b2wClick");
+              let ibc = `<div class="progress-bar bg-primary" style="width: `+parseInt(vbc)+`%;background-color: #1bc5ac;"></div>`;
+              sbc.innerHTML = ibc;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        Magalu stilo
+        <div class="progress-group">
+          Estoque com Pendecias Magalu Stilo
+          <span class="float-right"><b>{$MagaluStilo}</b>/{$MagaluStilot}</span>
+          <div class="progress progress-sm" id="MagaluStilo">
+            <script>
+              let vms = ({$MagaluStilo}/{$MagaluStilot}*100);
+              const sms = document.querySelector("#MagaluStilo");
+              let ims = `<div class="progress-bar bg-primary" style="width: `+parseInt(vms)+`%;background-color: rgb(0, 134, 255);;"></div>`;
+              sms.innerHTML = ims;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        Magalu click
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$MagaluClick}</b>/{$MagaluClickt}</span>
+          <div class="progress progress-sm" id="MagaluClick">
+            <script>
+              let vmc = ({$MagaluClick}/{$MagaluClickt}*100);
+              console.warn();
+              const smc = document.querySelector("#MagaluClick");
+              let imc = `<div class="progress-bar bg-primary" style="width: `+parseInt(vmc)+`%;background-color: rgb(0, 134, 255);;"></div>`;
+              smc.innerHTML = imc;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        Ml Click
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$mlClick}</b>/{$mlClickt}</span>
+          <div class="progress progress-sm" id="mlClick">
+            <script>
+              let vmlc = ({$mlClick}/{$mlClickt}*100);
+              console.warn();
+              const smlc = document.querySelector("#mlClick");
+              let imlc = `<div class="progress-bar bg-primary" style="width: `+parseInt(vmlc)+`%;background-color: #f8e838;"></div>`;
+              smlc.innerHTML = imlc;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+        Cnova stilo
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$b2wStilo}</b>/{$b2wStilot}</span>
+          <div class="progress progress-sm" id="b2wStilo">
+            <script>
+              let s = ({$b2wStilo}/{$b2wStilot}*100);
+              console.warn();
+              const v = document.querySelector("#b2wStilo");
+              let f = `<div class="progress-bar bg-primary" style="width: `+parseInt(s)+`%;background-color: #28a745;"></div>`;
+              v.innerHTML = f;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        Cnova click
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$b2wStilo}</b>/{$b2wStilot}</span>
+          <div class="progress progress-sm" id="b2wStilo">
+            <script>
+              let s = ({$b2wStilo}/{$b2wStilot}*100);
+              console.warn();
+              const v = document.querySelector("#b2wStilo");
+              let f = `<div class="progress-bar bg-primary" style="width: `+parseInt(s)+`%;background-color: #28a745;"></div>`;
+              v.innerHTML = f;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        Shopee Stilo
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$b2wStilo}</b>/{$b2wStilot}</span>
+          <div class="progress progress-sm" id="b2wStilo">
+            <script>
+              let s = ({$b2wStilo}/{$b2wStilot}*100);
+              console.warn();
+              const v = document.querySelector("#b2wStilo");
+              let f = `<div class="progress-bar bg-primary" style="width: `+parseInt(s)+`%;background-color: #f53d2d;"></div>`;
+              v.innerHTML = f;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        Shopee Click
+        <div class="progress-group">
+          Estoque com Pendecias B2w Stilo
+          <span class="float-right"><b>{$b2wStilo}</b>/{$b2wStilot}</span>
+          <div class="progress progress-sm" id="b2wStilo">
+            <script>
+              let s = ({$b2wStilo}/{$b2wStilot}*100);
+              console.warn();
+              const v = document.querySelector("#b2wStilo");
+              let f = `<div class="progress-bar bg-primary" style="width: `+parseInt(s)+`%;background-color: #f53d2d;"></div>`;
+              v.innerHTML = f;
+            </script>
+            <!-- <div class="progress-bar bg-primary" style="width: 8%"></div> -->
+          </div>
+        </div>
+  
+        
+        <!-- /.progress-group -->
+      </div>
 
     </section>
     <!-- /.content -->

@@ -12,7 +12,7 @@ use PDORow;
 
 class product{
 
-        public static function apiB2wStilo($pg){
+    public static function apiB2wStilo($pg){
 
         $page = [];
             ob_start();
@@ -34,9 +34,9 @@ class product{
                 array_push($page, $array["products"]);
 
                 return($page);
-        }
+ }
 
-        public static function updateb2wStilo(){
+    public static function updateb2wStilo(){
             
             for($i=0; $i<99; $i++){
             ob_start();
@@ -112,9 +112,9 @@ class product{
             
             
 
-        }
+ }
 
-        public static function apiB2wClick($pg){
+    public static function apiB2wClick($pg){
             $page = [];
                 ob_start();
                 $email = 'comercial@click24.com.br';
@@ -135,9 +135,9 @@ class product{
                     array_push($page, $array["products"]);
 
                     return($page);
-            } 
+ } 
 
-            public static function updateb2wClick(){
+    public static function updateb2wClick(){
                 for($i=0; $i<99; $i++){
                     ob_start();
                     $email = 'comercial@click24.com.br';
@@ -212,9 +212,9 @@ class product{
                         
                     }                    
 
-            }    
+ }    
 
-        public static function apimagalustilo($pg){
+    public static function apimagalustilo($pg){
             $page = [];
             $sku = [];
             $allSku = [];
@@ -269,9 +269,9 @@ class product{
 
         return $allSku;
 
-        } 
+ } 
 
-        public static function updatemagalustilo(){
+    public static function updatemagalustilo(){
             $page = [];
             $sku = [];
             $allSku = [];
@@ -372,10 +372,9 @@ class product{
 
 
         
-    }
+ }
 
-
-        public static function apimagaluclick($pg){
+    public static function apimagaluclick($pg){
         $page = [];
         $sku = [];
         $allSku = [];
@@ -430,9 +429,9 @@ class product{
 
         return $allSku;
 
-        } 
+ } 
 
-        public static function updatemagaluclick(){
+    public static function updatemagaluclick(){
             
             $page = [];
             $sku = [];
@@ -531,44 +530,51 @@ class product{
                 
             }  
 
-        }
+ }
 
-        public static function uploadMlclick($resp){
-        if(!empty($resp["tmp_name"])){
-        $arquivo = new DOMDocument();
-        $arquivo->load($resp["tmp_name"]);
+    public static function uploadMlclick($resp){
+            if(!empty($resp["tmp_name"])){
+            $arquivo = new DOMDocument();
+            $arquivo->load($resp["tmp_name"]);
 
-        $linhas = $arquivo->getElementsByTagName("Row");
-        $primeiralinha = true;
-        foreach($linhas as $value){
-            if($primeiralinha == false){
-            $MLB = $value->getElementsByTagName("Data")->item(0)->nodeValue;
-                    $sql = new Sql();
-                    $consul = $sql->select("SELECT * FROM tb_mlclick WHERE mlb = :mlb",array(
-                        ":mlb"=>$MLB
-                    ));
-                    if(count($consul) === 0){
-                    $sql->select("INSERT INTO tb_mlclick VALUES(NULL, :mlb, NULL, NULL, NULL, NULL)",array(
-                        ":mlb"=>$MLB
-                    ));
+            $linhas = $arquivo->getElementsByTagName("Row");
+            $primeiralinha = true;
+            foreach($linhas as $value){
+                if($primeiralinha == false){
+                $MLB = $value->getElementsByTagName("Data")->item(0)->nodeValue;
+                $value->getElementsByTagName("Data")->item(1) == '' ? $sku = null : $sku = $value->getElementsByTagName("Data")->item(1)->nodeValue;
+                        $sql = new Sql();
+                        $consul = $sql->select("SELECT * FROM tb_mlclick WHERE mlb = :mlb",array(
+                            ":mlb"=>$MLB
+                        ));
+                        if(count($consul) === 0){
+                        $sql->select("INSERT INTO tb_mlclick VALUES(NULL, :mlb, :id_produto, NULL, NULL, NULL)",array(
+                            ":mlb"=>$MLB,
+                            ":id_produto"=>$sku
+                        ));
 
-                    }else{
-                    $sql->select("UPDATE tb_mlclick SET mlb = $MLB");
-                }}
-                $primeiralinha = false;
-            }  
+                        }else{
+                        $sql->select("UPDATE tb_mlclick SET mlb = :mlb, id_produto = :sku where mlb = :mlb",[
+                            ":mlb"=>$MLB,
+                            ":sku"=>$sku
+                        ]);
+                    }}
+                    $primeiralinha = false;
+                }  
+                
+                        }
+ }
 
-                    }
-                }
-
-        public static function updateMlclick(){
-
-        $curl = curl_init();
-        $sql = new Sql();
-        $consul = $sql->select("SELECT mlb FROM tb_mlclick");
-            foreach($consul as $value){
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.mercadolibre.com/items?ids='.$value["mlb"],
+    public static function updateMlclick(){
+            $curl = curl_init();
+            $sql = new Sql();
+            $consul = $sql->select("SELECT mlb FROM tb_mlclick where mlb = mlb",[
+                ':mlb'=>'MLB1841289191'
+            ]);
+            foreach($consul as $v){
+        
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.mercadolibre.com/items?ids='.$v["mlb"],
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -577,55 +583,75 @@ class product{
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer APP_USR-4353001852101296-051420-6e1e26202af3fab13c0989975ccbf3fa-645921558'
+                'Authorization: Bearer APP_USR-4353001852101296-052820-4f72493aabff9db0b46d3a05d2b9b1c6-645921558',
+                'Cookie: _d2id=1fc17c45-ba74-4760-8258-60917a5a6ec6-n'
             ),
-        ));
+            ));
 
-        $response = curl_exec($curl);
+            $response = curl_exec($curl);
 
-        $resp = json_decode($response, true);
-            foreach($resp as $value){
-            $mlb = $value["body"]["id"];  
-            $sku = $value["body"]["variations"];
+            $resp = json_decode($response, true);
+            foreach($resp as $value){ 
+                $sku = [];
+                if(count($sku) != 0){
+                    $r = $value["body"]["variations"];
 
-            if(count($sku)===0){
-            $sku = $value["body"]["seller_custom_field"];
-            }elseif(($value["body"]["seller_custom_field"]) === NULL){
+                    if($value["body"]["seller_custom_field"] == null){
+                        
+                        if(!($value["body"]["variations"] == null)){
+                            if($value["body"]["variations"][0]["seller_custom_field"] === null){
 
-            $sku = $value["body"]["variations"][0]["seller_custom_field"];
-        }else{
-            $sku = $value["body"]["seller_custom_field"];
-        }
+                                foreach($r as $values){
+                                    $values = $values["attribute_combinations"];
+                                foreach($values as $key){
+                                    if($key["id"] == 'COLOR' || $key['id'] == 'STRUCTURE_COLOR'){
+                                        if($key["value_id"] != null){
+                                            $sku = ($key["value_id"]);
+                                        }
+                                        } 
+                                        } 
+                            }
+                                
+                            }else{
+                                $sku = $value["body"]["variations"][0]["seller_custom_field"];
+                            }
+                            }else{
+                                    $value = ($value["body"]["attributes"]);
+                                        foreach($value as $values){
+                                            if($values["id"] == 'SELLER_SKU'){
+                                                $sku = $values["value_name"];
+                                                            } 
+                                                        }
+                                                    }
+                                }else{
+                                $sku = $value["body"]["seller_custom_field"];
+                            }               
+            } 
+
             $nome = $value["body"]["title"];
             $preco = $value["body"]["price"];
-            $qtd = $value["body"]["sold_quantity"];
-
-            $sql = new Sql();
-            $consul = $sql->select("SELECT * FROM tb_mlclick WHERE mlb = :mlb",array(
-                ":mlb"=>$value["body"]["id"]
-            ));
-            if($consul){
+            $qtd = $value["body"]["available_quantity"];
+            if($consul && $sku){
                 $sql->select("UPDATE tb_mlclick SET id_produto = :sku, name = :name, preco = :preco, qtd = :qtd WHERE mlb = :mlb",array(
-                ":mlb"=>$mlb,
-                ":sku"=>$sku,
-                ":name"=>$nome,
-                ":preco"=>$preco,
-                ":qtd"=>$qtd
+                    ":mlb"=>$v["mlb"],
+                    ":sku"=>$sku,
+                    ":name"=>$nome,
+                    ":preco"=>$preco,
+                    ":qtd"=>$qtd
             ));
             }
-
-
-
+            //MLB1841289191
+            
         }
+      }
+      curl_close($curl);
 
-        }  
-        curl_close($curl);
-
-        }
+       
+ }
             
 
 
-    }
+}
 
 
     ?>

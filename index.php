@@ -20,6 +20,7 @@ $app->get('/admin', function() {
 	User::verifyLogin();
 	$User = new User();
 	$dash = new Dashboard();
+	/* $t = $dash->getAllmlClickDash(); */
 	$page = new pageadmin([
 		"header"=>false,
 	]);
@@ -30,10 +31,15 @@ $app->get('/admin', function() {
 	$page->setTpl("index",[
 		"Name"=>$User->getName(),
 		"b2wStilo"=>$dash->getB2wStiloDash()[0]["count(*)"],
+		"b2wStilot"=>$dash->getAllB2wStiloDash()[0]["count(sku)"],
 		"b2wClick"=>$dash->getB2wClickDash()[0]["count(*)"],
+		"b2wClickt"=>$dash->getAllB2wClickDash()[0]["count(sku)"],
 		"MagaluStilo"=>$dash->getMagaluStiloDash()[0]["count(*)"],
+		"MagaluStilot"=>$dash->getAllMagaluStiloDash()[0]["count(sku)"],
 		"MagaluClick"=>$dash->getMagaluClickDash()[0]["count(*)"],
-		"mlClick"=>$dash->getmlClickDash()[0]["count(*)"]
+		"MagaluClickt"=>$dash->getAllMagaluClickDash()[0]["count(sku)"],
+		"mlClick"=>$dash->getmlClickDash()[0]["count(*)"],
+		"mlClickt"=>$dash->getAllmlClickDash()[0]["count(mlb)"]
 	]);
 	
 });
@@ -323,26 +329,21 @@ $app->get("/admin/product/mlclick/importar", function(){
 	$page->setTpl("header",[
 		"Name"=>$User->getName()
 	]);
-	/* $pages = product::apimlclick(); */
-
-	$page->setTpl("product_ml_click_importar",[
-		/* 'page1'=>$pages, */
-		
-		
-	]);
+	$page->setTpl("product_ml_click_importar");
 });
 
 $app->post("/admin/product/mlclick/importar", function(){
 	
 	User::verifyLogin();
 	$User = new User();
+	$product = new product();
+	$product->uploadMlclick($_FILES['arquivo']);
 	$page = new pageadmin([
 		"header"=>false,
 	]);
 	$page->setTpl("header",[
 		"Name"=>$User->getName()
 	]);
-	$pages = product::uploadMlclick($_FILES['arquivo']);
 	header("Location: /admin/product/mlclick");
 	exit;
 });
@@ -912,8 +913,6 @@ $app->get("/admin/preco/mlclick/gerar_planilha_ml_click", function(){
 	$excel = preco::gerarPlanilhaPrecoMlclick();
 
 });
-
-
 
 $app->run();
 
