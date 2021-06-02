@@ -353,7 +353,29 @@ class Preco{
         $sql = new Sql();
 
         $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
-        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto order by name asc",array(
+        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto order by name asc
+        limit $start, $itensporpage",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!"
+        ));
+
+        $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
+        $valor = ($resulttotal[0]["NRTOTAL"]);
+         return[
+        'data'=>$result,
+        'total'=>(int)$resulttotal[0]["NRTOTAL"],
+        'pages'=>ceil($valor/$itensporpage)+1
+         ];
+
+    }
+    public static function precoMlClickFilter($page = 1, $filter, $itensporpage = 20){
+        $start = ($page - 1)* $itensporpage;
+         
+        $sql = new Sql();
+
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto order by name asc
+        limit $start, $itensporpage",array(
             ":v"=>"Preço correto!",
             ":f"=>"Preço divergente!"
         ));
@@ -378,8 +400,10 @@ class Preco{
         $html .= '<td><b>ID</b></td>';
         $html .= '<td><b>MLB</b></td>';
         $html .= '<td><b>Nome</b></td>';
+        $html .= '<td><b>Tipo de Anúncio</b></td>';
         $html .= '<td><b>Preço MKTP</b></td>';
         $html .= '<td><b>Preço ERP</b></td>';
+        $html .= '<td><b>Status</b></td>';
         $html .= '<td><b>Comparativo</b></td>';
         $html .= '</tr>';
         
@@ -395,8 +419,10 @@ class Preco{
         $html .= '<td>'.$value["id_produto"].'</td>';
         $html .= '<td>'.$value["mlb"].'</td>';
         $html .= '<td>'.$value["name"].'</td>';
+        $html .= '<td>'.$value["tipo"].'</td>';
         $html .= '<td>'.$value["preco"].'</td>';
         $html .= '<td>'.$value["preco_venda"].'</td>';
+        $html .= '<td>'.$value["status"].'</td>';
         $html .= '<td>'.$value["Comparativo"].'</td>';
         $html .= '</tr>';}
 
@@ -411,21 +437,6 @@ class Preco{
         echo utf8_decode($html);
 
         exit;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   }
 
 }

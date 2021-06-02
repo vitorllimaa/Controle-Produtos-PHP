@@ -26,6 +26,7 @@
               }
               #v{
                 text-align: center;
+                display: flex;
               }
               #c{
                 text-align: center;
@@ -41,8 +42,10 @@
                     <tr>
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
+                      <th>Tipo de Anúncio</th>
                       <th>Estoque MKTP</th>
                       <th>Estoque ERP</th>
+                      <th>Status</th>
                       <th id="c">Comparativo</th>
                     </tr>
                   </thead>
@@ -51,9 +54,13 @@
                     <tr>
                       <td><?php echo htmlspecialchars( $value1["id_produto"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <td id="v"><?php if( $value1["tipo"]=='Clássico' ){ ?><small class="label label-default">Clássico</small>
+                        <?php }else{ ?><small class="label label-primary">Premium</small><?php } ?></td>
                       <td><?php echo htmlspecialchars( $value1["qtd"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["estoque_aton"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                      <td id="v"><?php if( $value1["Comparativo"]=='Estoque correto!' ){ ?><small class="label pull-right bg-green">Estoque correto</small>
+                      <td id="v"><?php if( $value1["status"]=='active' ){ ?><small class="label label-success">Ativo</small>
+                        <?php }else{ ?><small class="label label-danger">Desativado</small><?php } ?></td>
+                      <td><?php if( $value1["Comparativo"]=='Estoque correto!' ){ ?><small class="label pull-right bg-green">Estoque correto</small>
                         <?php }else{ ?><small class="label pull-right bg-red">Alerta - divergente</small><?php } ?></td>
                     </tr>
                     <?php } ?>

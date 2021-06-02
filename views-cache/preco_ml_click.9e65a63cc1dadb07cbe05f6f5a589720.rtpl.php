@@ -35,27 +35,63 @@
                 position: absolute;
                 top: auto;
                 left: 90%;
+                transform: translate(-30px, 10px);
               }
             </style>
             <div id="p"><p>TOTAL DE PRODUTOS: <?php echo htmlspecialchars( $pages, ENT_COMPAT, 'UTF-8', FALSE ); ?></p></div>
             </li>
           </ul>
           <a href="/admin/preco/mlclick/gerar_planilha_ml_click"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
-            <select id="m" class="form-controll">
-              <option selected="selected">Alabama</option>
-              <option>Teste1</option>
-              <option>Teste2</option>
-              <option>Teste3</option>
-              <option>Teste4</option>
-            </select>
+          <style>
+            #Filter{display: flex;
+              flex-direction: row;
+              align-content: center;
+              width: 955px;
+              transform: translate(120px, -19px);
+              align-items: center;
+              flex-wrap: wrap;
+              justify-content: space-evenly;
+            }
+            #Search{    
+              width: 800px;
+              transform: translate(0px, 15px);
+            }
+            #search-btn{
+              border-color: gray;
+            }
+            .input-group-btn{
+              border-color: black;
+            }
+          </style>
+          <form role="form" action="/admin/preco/mlclick" id="Filter">
+            <strong>Filtro:</strong>
+                <input type="checkbox" name="Alerta - divergente" value="Alerta - divergente"/>Alerta - divergente<br>
+                <input type="checkbox" name="Estoque correto" value="Estoque correto"/>Estoque correto<br>
+                <input type="checkbox" name="Com Estoque" value="Com Estoque"/>Com Estoque<br>
+                <input type="checkbox" name="Sem Estoque" value="Sem Estoque"/>Sem Estoque<br>
+                <input type="checkbox" name="Classico" value="Classico"/>Classico<br>
+                <input type="checkbox" name="Premium" value="Premium"/>Premium<br>
+                <input type="checkbox" name="Ativo" value="Ativo"/>Ativo<br>
+                <input type="checkbox" name="Inativo" value="Inativo"/>Inativo<br>
+                <button type="submit" class="btn btn-info">Consultar</button>
+                <div class="input-group" id="Search">
+                  <input type="text" name="q" class="form-control" placeholder="Pesquisar..." value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                      <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        </button>
+                      </span>
+                </div>
+          </form>
           <div class="box-body no-padding">
                 <table class="table table-striped">
                   <thead>
                     <tr>
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
+                      <th>Tipo de Anúncio</th>
                       <th>Estoque MKTP</th>
                       <th>Estoque ERP</th>
+                      <th>Status</th>
                       <th id="c">Comparativo</th>
                     </tr>
                   </thead>
@@ -64,8 +100,13 @@
                     <tr>
                       <td><?php echo htmlspecialchars( $value1["id_produto"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <td id="v"><?php if( $value1["tipo"]=='Clássico' ){ ?><small class="label label-default">Clássico</small>
+                        <?php }else{ ?><small class="label label-primary">Premium</small><?php } ?></td>
+                      <td><?php echo htmlspecialchars( $value1["qtd"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["preco"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["preco_venda"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                      <td id="v"><?php if( $value1["status"]=='active' ){ ?><small class="label label-success">Ativo</small>
+                        <?php }else{ ?><small class="label label-danger">Desativado</small><?php } ?></td>
                       <td id="v"><?php if( $value1["Comparativo"]=='Preço correto!' ){ ?><small class="label pull-right bg-green">Preço correto</small>
                         <?php }else{ ?><small class="label pull-right bg-red">Alerta - divergente</small><?php } ?></td>
                     </tr>

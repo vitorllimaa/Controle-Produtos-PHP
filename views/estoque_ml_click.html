@@ -26,6 +26,7 @@
               }
               #v{
                 text-align: center;
+                display: flex;
               }
               #c{
                 text-align: center;
@@ -41,8 +42,10 @@
                     <tr>
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
+                      <th>Tipo de Anúncio</th>
                       <th>Estoque MKTP</th>
                       <th>Estoque ERP</th>
+                      <th>Status</th>
                       <th id="c">Comparativo</th>
                     </tr>
                   </thead>
@@ -51,9 +54,13 @@
                     <tr>
                       <td>{$value.id_produto}</td>
                       <td>{$value.name}</td>
+                      <td id="v">{if="$value.tipo=='Clássico'"}<small class="label label-default">Clássico</small>
+                        {else}<small class="label label-primary">Premium</small>{/if}</td>
                       <td>{$value.qtd}</td>
                       <td>{$value.estoque_aton}</td>
-                      <td id="v">{if="$value.Comparativo=='Estoque correto!'"}<small class="label pull-right bg-green">Estoque correto</small>
+                      <td id="v">{if="$value.status=='active'"}<small class="label label-success">Ativo</small>
+                        {else}<small class="label label-danger">Desativado</small>{/if}</td>
+                      <td>{if="$value.Comparativo=='Estoque correto!'"}<small class="label pull-right bg-green">Estoque correto</small>
                         {else}<small class="label pull-right bg-red">Alerta - divergente</small>{/if}</td>
                     </tr>
                     {/loop}

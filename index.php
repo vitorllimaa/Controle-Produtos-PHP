@@ -884,14 +884,22 @@ $app->get("/admin/preco/mlclick", function(){
 	
 	User::verifyLogin();
 	$User = new User();
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
 	$page = new pageadmin([
 		"header"=>false,
 	]);
 	$page->setTpl("header",[
 		"Name"=>$User->getName()
 	]);
+	var_dump($_GET);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = preco::precoMlclcik($pg);
+	if(($_GET == null)){
+		$pages = preco::precoMlclcik($pg);
+	}elseif(((count($_GET) < 2) && ($_GET['q'] == null))){
+		$pages = preco::precoMlclcik($pg);
+	}else{
+		$pages = '';
+	}
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
@@ -902,8 +910,32 @@ $app->get("/admin/preco/mlclick", function(){
 	$page->setTpl("preco_ml_click",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		"search"=>$search
 	]);
+
+});
+
+$app->post("/admin/preco/mlclick", function(){
+	
+	User::verifyLogin();
+	$User = new User();
+	var_dump($_POST);
+	exit;
+	$page = new pageadmin([
+		"header"=>false,
+	]);
+	$page->setTpl("header",[
+		"Name"=>$User->getName()
+	]);
+	header("Location: /admin/precostilo");
+	exit;
+
+});
+
+$app->get("/admin/preco/mlclick/search" , function(){
+
+
 
 });
 

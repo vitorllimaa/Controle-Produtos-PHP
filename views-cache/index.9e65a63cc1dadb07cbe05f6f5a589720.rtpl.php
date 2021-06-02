@@ -1,5 +1,9 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?>  <!-- Content Wrapper. Contains page content -->
   <style>
+    .text-center, strong{
+      font-size: 24px;
+      font-weight: 500;
+    }
     #content{
       width: 500px;
       padding: 10px;
@@ -9,7 +13,7 @@
       flex-direction: column;
       align-items: stretch;
       transform: translate(-200px, 10px);
-    width: 890px;
+    width: 500px;
     }
     .progress-sm{
       background-color: var(--gray);
@@ -130,8 +134,8 @@ html {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <?php echo htmlspecialchars( $Name, ENT_COMPAT, 'UTF-8', FALSE ); ?><br>
-        Seja Bem-vindo!
+        Seja Bem-vindo!<br>
+        Dashboard
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -143,31 +147,30 @@ html {
     <div class="row">
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-info">
+        <div class="small-box bg-danger">
           <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo htmlspecialchars( $MagaluClick, ENT_COMPAT, 'UTF-8', FALSE ); ?></font></font></h3>
+            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo htmlspecialchars( $b2wStilot, ENT_COMPAT, 'UTF-8', FALSE ); ?> / <?php echo htmlspecialchars( $b2wClickt, ENT_COMPAT, 'UTF-8', FALSE ); ?></font></font></h3>
 
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Magalu<br> com Pendencias</font></font></p>
+            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">StiloEletro / Clikc24<br></font></font></p>
           </div>
           <div class="icon">
             <i class="ion-alert-circled"></i>
           </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Click24</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
+          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">B2w</font></font><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
         </div>
       </div>
-      <!-- ./col -->
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-success"id="VV">
+        <div class="small-box bg-info">
           <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font><sup style="font-size: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></sup></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Via Varejo<br> com Pendencias</font></font></p>
+            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo htmlspecialchars( $MagaluStilot, ENT_COMPAT, 'UTF-8', FALSE ); ?> / <?php echo htmlspecialchars( $MagaluClickt, ENT_COMPAT, 'UTF-8', FALSE ); ?></font></font></h3>
+            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">StiloEletro / click24<br></font></font></p>
+            
           </div>
           <div class="icon">
-            <i class="ion-alert-circled "></i>
+            <i class="ion-alert-circled"></i>
           </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Click24</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
+          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Magazine Luiza</font></font><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -175,43 +178,44 @@ html {
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo htmlspecialchars( $mlClick, ENT_COMPAT, 'UTF-8', FALSE ); ?></font></font></h3>
+            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo htmlspecialchars( $mlClickt, ENT_COMPAT, 'UTF-8', FALSE ); ?></font></font></h3>
 
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Mercado Livre<br> com Pendencias</font></font></p>
+            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Click24<br></font></font></p>
           </div>
           <div class="icon">
             <i class="ion-alert-circled"></i>
           </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Click24</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-          <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?php echo htmlspecialchars( $b2wClick, ENT_COMPAT, 'UTF-8', FALSE ); ?></font></font></h3>
-
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos B2W<br> com Pendencias</font></font></p>
-          </div>
-          <div class="icon">
-            <i class="ion-alert-circled"></i>
-          </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Click24</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
+          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mercado Livre</font></font><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
         </div>
       </div>
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-success" id="Shopee">
+        <div class="small-box bg-success"id="VV">
           <div class="inner">
-            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font><sup style="font-size: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></sup></h3>
+            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0 / 0</font></font><sup style="font-size: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></sup></h3>
 
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Produtos Shopee<br> com Pendencias</font></font></p>
+            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">StiloEletro / Click24<br></font></font></p>
           </div>
           <div class="icon">
             <i class="ion-alert-circled "></i>
           </div>
-          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Click24</font></font><i class="fa fa-registered" aria-hidden="true"></i></a>
+          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Via Varejo</font></font><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success" id="Shopee">
+          <div class="inner">
+            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0 / 0</font></font><sup style="font-size: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></sup></h3>
+
+            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">StiloEletro / Click24<br></font></font></p>
+          </div>
+          <div class="icon">
+            <i class="ion-alert-circled "></i>
+          </div>
+          <a href="#" class="small-box-footer"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Shopee</font></font><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
         </div>
       </div>
       <!-- ./col -->
