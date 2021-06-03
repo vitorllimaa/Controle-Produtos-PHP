@@ -83,42 +83,46 @@ class estoque{
 
     }
     //paginação b2w
-    public static function estoqueb2wstilo($page = 1, $itensporpage = 200){
+    public static function estoqueb2wstilo($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
 
         $sql = new Sql();
-        $resutl = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto order by nome asc
-        limit $start, $itensporpage",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
+        FROM tb_b2w_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
         $valor = ($resulttotal[0]["NRTOTAL"]);
          return[
-        'data'=>$resutl,
+        'data'=>$result,
         'total'=>(int)$resulttotal[0]["NRTOTAL"],
         'pages'=>ceil($valor/$itensporpage)+1
          ];
 
     }
 
-    public static function estoqueb2wclick($page = 1, $itensporpage = 200){
+    public static function estoqueb2wclick($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
 
         $sql = new Sql();
-        $resutl = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto order by nome asc
-        limit $start, $itensporpage",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
+        FROM tb_b2w_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
-
+    
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
         $valor = ($resulttotal[0]["NRTOTAL"]);
          return[
-        'data'=>$resutl,
+        'data'=>$result,
         'total'=>(int)$resulttotal[0]["NRTOTAL"],
         'pages'=>ceil($valor/$itensporpage)+1
          ];
@@ -217,16 +221,18 @@ class estoque{
         exit;
     }
     //paginação magalu
-    public static function estoqueMagalustilo($page = 1, $itensporpage = 200){
+    public static function estoqueMagalustilo($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
         $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_magalu_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto order by nome asc
-        limit 1, 30;",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        FROM tb_magalu_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -239,16 +245,18 @@ class estoque{
 
     }
 
-    public static function estoqueMagaluclick($page = 1, $itensporpage = 200){
+    public static function estoqueMagaluclick($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
         $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_magalu_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto order by nome asc
-        limit 1, 30;",array(
-            ":v"=>"Estoque correto!",
-            ":f"=>"Estoque divergente!"
+        FROM tb_magalu_click a inner join tb_aton_estoque_click b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -357,6 +365,31 @@ class estoque{
         limit $start, $itensporpage",array(
             ":v"=>"Estoque correto!",
             ":f"=>"Estoque divergente!"
+        ));
+
+        $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
+        $valor = ($resulttotal[0]["NRTOTAL"]);
+         return[
+        'data'=>$result,
+        'total'=>(int)$resulttotal[0]["NRTOTAL"],
+        'pages'=>ceil($valor/$itensporpage)+1
+         ];
+
+    }
+
+    public static function estoqueMlClickFilter($page = 1, $search, $itensporpage = 200){
+        
+        $start = ($page - 1)* $itensporpage;
+        $sql = new Sql();
+
+        $result = $sql->select("SELECT sql_calc_found_rows * ,  if(qtd = estoque_aton, :v, :f) as Comparativo
+        FROM tb_mlclick a inner join tb_aton_estoque_click b on a.id_produto = b.id_produto
+        Where a.name LIKE :name or a.id_produto = :sku limit $start, $itensporpage",array(
+            ":v"=>"Preço correto!",
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
+            
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");

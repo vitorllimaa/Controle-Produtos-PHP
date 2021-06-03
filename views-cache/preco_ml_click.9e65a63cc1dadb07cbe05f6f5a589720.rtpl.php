@@ -64,7 +64,7 @@
             }
           </style>
           <form role="form" action="/admin/preco/mlclick" id="Filter">
-            <strong>Filtro:</strong>
+           <!--  <strong>Filtro:</strong>
                 <input type="checkbox" name="Alerta - divergente" value="Alerta - divergente"/>Alerta - divergente<br>
                 <input type="checkbox" name="Estoque correto" value="Estoque correto"/>Estoque correto<br>
                 <input type="checkbox" name="Com Estoque" value="Com Estoque"/>Com Estoque<br>
@@ -73,11 +73,11 @@
                 <input type="checkbox" name="Premium" value="Premium"/>Premium<br>
                 <input type="checkbox" name="Ativo" value="Ativo"/>Ativo<br>
                 <input type="checkbox" name="Inativo" value="Inativo"/>Inativo<br>
-                <button type="submit" class="btn btn-info">Consultar</button>
+                <button type="submit" class="btn btn-info">Consultar</button> -->
                 <div class="input-group" id="Search">
-                  <input type="text" name="q" class="form-control" placeholder="Pesquisar..." value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                  <input type="text" name="search" class="form-control" placeholder="Pesquisar..." value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                       <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        <button type="submit"" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                         </button>
                       </span>
                 </div>
@@ -89,8 +89,8 @@
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
                       <th>Tipo de Anúncio</th>
-                      <th>Estoque MKTP</th>
-                      <th>Estoque ERP</th>
+                      <th>Preço MKTP</th>
+                      <th>Preço ERP</th>
                       <th>Status</th>
                       <th id="c">Comparativo</th>
                     </tr>
@@ -102,7 +102,6 @@
                       <td><?php echo htmlspecialchars( $value1["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td id="v"><?php if( $value1["tipo"]=='Clássico' ){ ?><small class="label label-default">Clássico</small>
                         <?php }else{ ?><small class="label label-primary">Premium</small><?php } ?></td>
-                      <td><?php echo htmlspecialchars( $value1["qtd"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["preco"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["preco_venda"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td id="v"><?php if( $value1["status"]=='active' ){ ?><small class="label label-success">Ativo</small>
@@ -117,7 +116,7 @@
                   <ul class="pagination pagination-sm">
                     <li><a href="#">«</a></li>
                     <?php $counter1=-1;  if( isset($pg) && ( is_array($pg) || $pg instanceof Traversable ) && sizeof($pg) ) foreach( $pg as $key1 => $value1 ){ $counter1++; ?>
-                    <li class="page-item"><a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                    <li class="page-item"><a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
                     <?php } ?>
                     <li><a href="#">»</a></li>
                   </ul>

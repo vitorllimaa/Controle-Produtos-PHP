@@ -524,18 +524,23 @@ $app->get("/admin/estoque/b2wstilo", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = estoque::estoqueb2wstilo($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = estoque::estoqueB2wstilo($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/estoque/b2wstilo'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/estoque/b2wstilo?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("estoque_b2w_stilo",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -551,18 +556,23 @@ $app->get("/admin/estoque/b2wclick", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = estoque::estoqueb2wclick($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = estoque::estoqueB2wclick($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/estoque/b2wclick'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/estoque/b2wclick?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("estoque_b2w_click",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -592,18 +602,24 @@ $app->get("/admin/estoque/magalustilo", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = estoque::estoqueMagalustilo($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = estoque::estoqueMagalustilo($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/estoque/magalustilo'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/estoque/magalustilo?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
+    
 	$page->setTpl("estoque_magalu_stilo",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -619,18 +635,23 @@ $app->get("/admin/estoque/magaluclick", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = estoque::estoqueMagaluclick($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = estoque::estoqueMagaluclick($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/estoque/magaluclick'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/estoque/magaluclick?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("estoque_magalu_click",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -660,18 +681,23 @@ $app->get("/admin/estoque/mlclick", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = estoque::estoqueMlclcik($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = estoque::estoqueMlClickFilter($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/estoque/mlclick'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/preco/mlclick?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("estoque_ml_click",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -754,18 +780,23 @@ $app->get("/admin/preco/b2wstilo", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = Preco::precob2wstilo($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = Preco::precob2wstilo($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/preco/b2wstilo'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/preco/b2wstilo?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("preco_b2w_stilo",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -781,19 +812,24 @@ $app->get("/admin/preco/b2wclick", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = Preco::precob2wclick($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = Preco::precob2wclick($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/preco/b2wclick'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/preco/b2wclick	?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 
 	$page->setTpl("preco_b2w_click",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -823,18 +859,23 @@ $app->get("/admin/preco/magalustilo", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = Preco::precoMagalustilo($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = Preco::precoMagalustilo($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/preco/magalustilo'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/preco/magalustilo?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("preco_magalu_stilo",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -850,18 +891,23 @@ $app->get("/admin/preco/magaluclick", function(){
 		"Name"=>$User->getName()
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	$pages = Preco::precoMagaluclick($pg);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = Preco::precoMagaluclick($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/preco/magaluclick'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/preco/magaluclick?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("preco_magalu_click",[
 		'page'=>$pages['data'],
 		'pages'=>$pages['total'],
-		'pg'=>$paginas
+		'pg'=>$paginas,
+		'search'=>$search
 	]);
 
 });
@@ -884,27 +930,24 @@ $app->get("/admin/preco/mlclick", function(){
 	
 	User::verifyLogin();
 	$User = new User();
-	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	
 	$page = new pageadmin([
 		"header"=>false,
 	]);
 	$page->setTpl("header",[
 		"Name"=>$User->getName()
 	]);
-	var_dump($_GET);
-	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
-	if(($_GET == null)){
-		$pages = preco::precoMlclcik($pg);
-	}elseif(((count($_GET) < 2) && ($_GET['q'] == null))){
-		$pages = preco::precoMlclcik($pg);
-	}else{
-		$pages = '';
-	}
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$pages = preco::precoMlClickFilter($pg, $search);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
-			'link'=>'/admin/preco/mlclick'.'?page='.$i,
-			'page'=>$i
+			'link'=>'/admin/preco/mlclick?'.http_build_query([
+				'page'=>$i,
+				'search'=>$search
+			]),
+			'text'=>$i
 		]);
 	}
 	$page->setTpl("preco_ml_click",[
@@ -930,12 +973,6 @@ $app->post("/admin/preco/mlclick", function(){
 	]);
 	header("Location: /admin/precostilo");
 	exit;
-
-});
-
-$app->get("/admin/preco/mlclick/search" , function(){
-
-
 
 });
 

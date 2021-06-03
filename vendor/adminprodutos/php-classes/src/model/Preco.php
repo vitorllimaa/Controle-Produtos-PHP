@@ -85,15 +85,17 @@ class Preco{
 
     }
     //paginação b2w
-    public static function precob2wstilo($page = 1, $itensporpage = 200){
+    public static function precob2wstilo($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
 
         $sql = new Sql();
         $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
-        FROM tb_b2w_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto order by nome asc
-        limit $start, $itensporpage",array(
+        FROM tb_b2w_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
             ":v"=>"Preço correto!",
-            ":f"=>"Preço divergente!"
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -106,21 +108,23 @@ class Preco{
 
     }
 
-    public static function precob2wclick($page = 1, $itensporpage = 200){
+    public static function precob2wclick($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
 
         $sql = new Sql();
-        $resutl = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
-        FROM tb_b2w_click a inner join tb_aton_preco_click b on a.sku = b.id_produto order by nome asc
-        limit $start, $itensporpage",array(
+        $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
+        FROM tb_b2w_click a inner join tb_aton_preco_click b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
             ":v"=>"Preço correto!",
-            ":f"=>"Preço divergente!"
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
         $valor = ($resulttotal[0]["NRTOTAL"]);
          return[
-        'data'=>$resutl,
+        'data'=>$result,
         'total'=>(int)$resulttotal[0]["NRTOTAL"],
         'pages'=>ceil($valor/$itensporpage)+1
          ];
@@ -219,15 +223,18 @@ class Preco{
         exit;
     }
     //paginação magalu
-    public static function precoMagalustilo($page = 1, $itensporpage = 200){    
+    public static function precoMagalustilo($page = 1, $search, $itensporpage = 200){    
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
         $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
-        FROM tb_magalu_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto order by nome asc",array(
+        FROM tb_magalu_stilo a inner join tb_aton_preco_stilo b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
             ":v"=>"Preço correto!",
-            ":f"=>"Preço divergente!"
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
@@ -240,16 +247,20 @@ class Preco{
 
     }
 
-    public static function precoMagaluclick($page = 1, $itensporpage = 200){
+    public static function precoMagaluclick($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
          
         $sql = new Sql();
 
         $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
-        FROM tb_magalu_click a inner join tb_aton_preco_click b on a.sku = b.id_produto order by nome asc",array(
+        FROM tb_magalu_click a inner join tb_aton_preco_click b on a.sku = b.id_produto
+        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
             ":v"=>"Preço correto!",
-            ":f"=>"Preço divergente!"
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
         ));
+        
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");
         $valor = ($resulttotal[0]["NRTOTAL"]);
@@ -368,16 +379,20 @@ class Preco{
          ];
 
     }
-    public static function precoMlClickFilter($page = 1, $filter, $itensporpage = 20){
+
+    public static function precoMlClickFilter($page = 1, $search, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
-         
+
         $sql = new Sql();
 
         $result = $sql->select("SELECT sql_calc_found_rows * , if(preco = preco_venda, :v, :f) as Comparativo
-        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto order by name asc
-        limit $start, $itensporpage",array(
+        FROM tb_mlclick a inner join tb_aton_preco_click b on a.id_produto = b.id_produto
+        Where a.name LIKE :name or a.id_produto = :sku limit $start, $itensporpage",array(
             ":v"=>"Preço correto!",
-            ":f"=>"Preço divergente!"
+            ":f"=>"Preço divergente!",
+            ":name"=>'%'.$search.'%',
+            ":sku"=>$search
+            
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");

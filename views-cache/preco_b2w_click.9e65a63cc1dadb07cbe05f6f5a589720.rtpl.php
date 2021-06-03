@@ -35,6 +35,36 @@
             </li>
           </ul>
           <a href="/admin/preco/b2wclick/gerar_planilha_b2w_click"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
+          <style>
+            #Filter{display: flex;
+              flex-direction: row;
+              align-content: center;
+              width: 955px;
+              transform: translate(120px, -19px);
+              align-items: center;
+              flex-wrap: wrap;
+              justify-content: space-evenly;
+            }
+            #Search{    
+              width: 800px;
+              transform: translate(0px, 15px);
+            }
+            #search-btn{
+              border-color: gray;
+            }
+            .input-group-btn{
+              border-color: black;
+            }
+            </style>
+            <form role="form" action="/admin/preco/b2wclick" id="Filter">
+              <div class="input-group" id="Search">
+                <input type="text" name="search" class="form-control" placeholder="Pesquisar..." value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                    <span class="input-group-btn">
+                      <button type="submit"" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                      </button>
+                    </span>
+              </div>
+            </form>
               <div class="box-body no-padding">
                 <table class="table table-striped">
                   <thead>
@@ -66,7 +96,7 @@
                   <ul class="pagination pagination-sm">
                     <li><a href="#">«</a></li>
                     <?php $counter1=-1;  if( isset($pg) && ( is_array($pg) || $pg instanceof Traversable ) && sizeof($pg) ) foreach( $pg as $key1 => $value1 ){ $counter1++; ?>
-                    <li class="page-item"><a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                    <li class="page-item"><a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
                     <?php } ?>
                     <li><a href="#">»</a></li>
                   </ul>

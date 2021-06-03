@@ -64,7 +64,7 @@
             }
           </style>
           <form role="form" action="/admin/preco/mlclick" id="Filter">
-            <strong>Filtro:</strong>
+           <!--  <strong>Filtro:</strong>
                 <input type="checkbox" name="Alerta - divergente" value="Alerta - divergente"/>Alerta - divergente<br>
                 <input type="checkbox" name="Estoque correto" value="Estoque correto"/>Estoque correto<br>
                 <input type="checkbox" name="Com Estoque" value="Com Estoque"/>Com Estoque<br>
@@ -73,11 +73,11 @@
                 <input type="checkbox" name="Premium" value="Premium"/>Premium<br>
                 <input type="checkbox" name="Ativo" value="Ativo"/>Ativo<br>
                 <input type="checkbox" name="Inativo" value="Inativo"/>Inativo<br>
-                <button type="submit" class="btn btn-info">Consultar</button>
+                <button type="submit" class="btn btn-info">Consultar</button> -->
                 <div class="input-group" id="Search">
-                  <input type="text" name="q" class="form-control" placeholder="Pesquisar..." value="{$search}">
+                  <input type="text" name="search" class="form-control" placeholder="Pesquisar..." value="{$search}">
                       <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        <button type="submit"" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                         </button>
                       </span>
                 </div>
@@ -89,8 +89,8 @@
                       <th style="width: 60px">ID</th>
                       <th>Nome</th>
                       <th>Tipo de Anúncio</th>
-                      <th>Estoque MKTP</th>
-                      <th>Estoque ERP</th>
+                      <th>Preço MKTP</th>
+                      <th>Preço ERP</th>
                       <th>Status</th>
                       <th id="c">Comparativo</th>
                     </tr>
@@ -102,7 +102,6 @@
                       <td>{$value.name}</td>
                       <td id="v">{if="$value.tipo=='Clássico'"}<small class="label label-default">Clássico</small>
                         {else}<small class="label label-primary">Premium</small>{/if}</td>
-                      <td>{$value.qtd}</td>
                       <td>{$value.preco}</td>
                       <td>{$value.preco_venda}</td>
                       <td id="v">{if="$value.status=='active'"}<small class="label label-success">Ativo</small>
@@ -117,7 +116,7 @@
                   <ul class="pagination pagination-sm">
                     <li><a href="#">«</a></li>
                     {loop="$pg"}
-                    <li class="page-item"><a class="page-link" href="{$value.link}">{$value.page}</a></li>
+                    <li class="page-item"><a class="page-link" href="{$value.link}">{$value.text}</a></li>
                     {/loop}
                     <li><a href="#">»</a></li>
                   </ul>
