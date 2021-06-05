@@ -83,17 +83,31 @@ class estoque{
 
     }
     //paginação b2w
-    public static function estoqueb2wstilo($page = 1, $search, $itensporpage = 200){
+    public static function estoqueb2wstilo($page = 1, $search, $filter, $itensporpage = 200){
         $start = ($page - 1)* $itensporpage;
+
+        $ativo = (isset($filter["status"])) ? $filter["status"] : '';
+        $ativo = ($ativo == 'Ativo') ? 'linked': '%%';
+        $inativo = (isset($filter["status"])) ? $filter["status"] : '';
+        $inativo = ($inativo == 'Inativo') ? 'linked': '';
+        $Alerta_divergente = (isset($filter["Comparativo"])) ? $filter["Comparativo"] : '';
+        $Alerta_divergente = ($Alerta_divergente == 'Alerta') ? 'Alerta': '';
+        $Estoque_Correto = (isset($filter["Comparativo"])) ? $filter["Comparativo"] : '';
+        $Estoque_Correto = ($Estoque_Correto == 'Correto') ? 'Correto': '';
 
         $sql = new Sql();
         $result = $sql->select("SELECT sql_calc_found_rows * , if(estoque = estoque_aton, :v, :f) as Comparativo
-        FROM tb_b2w_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto
-        Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
-            ":v"=>"Preço correto!",
-            ":f"=>"Preço divergente!",
+        FROM tb_b2w_stilo a inner join tb_aton_estoque_stilo b on a.sku = b.id_produto and status LIKE :ativo and
+        status != :inativo and IF(:Alerta_divergente = 'Alerta', estoque != estoque_aton, estoque like '%%') AND
+        IF(:Estoque_Correto = 'Correto', estoque = estoque_aton, estoque like '%%') Where a.nome LIKE :name or a.sku = :sku order by nome asc limit $start, $itensporpage",array(
+            ":v"=>"Estoque correto",
+            ":f"=>"Estoque divergente",
             ":name"=>'%'.$search.'%',
-            ":sku"=>$search
+            ":sku"=>$search,
+            ":ativo"=>$ativo,
+            ":inativo"=>$inativo,
+            ":Alerta_divergente"=>$Alerta_divergente,
+            ":Estoque_Correto"=>$Estoque_Correto
         ));
 
         $resulttotal = $sql->select("SELECT found_rows() AS NRTOTAL");

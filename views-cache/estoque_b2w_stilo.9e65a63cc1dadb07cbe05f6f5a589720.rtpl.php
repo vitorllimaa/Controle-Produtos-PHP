@@ -36,11 +36,14 @@
           </ul>
           <a href="/admin/estoque/b2wstilo/gerar_planilha_b2w_stilo"><button type="button" class="btn btn-success">Gerar Planilha</button></a>
           <style>
+            .btn-info{
+              transform: translate(10px, -10px);
+            }
             #Filter{display: flex;
               flex-direction: row;
               align-content: center;
               width: 955px;
-              transform: translate(120px, -19px);
+              transform: translate(50px, -19px);
               align-items: center;
               flex-wrap: wrap;
               justify-content: space-evenly;
@@ -56,7 +59,29 @@
               border-color: black;
             }
             </style>
-            <form role="form" action="/admin/preco/b2wstilo" id="Filter">
+            <form role="form" action="/admin/estoque/b2wstilo" id="checkbox">
+              <div class="form-group">
+                <div class="custom-control custom-radio"style="
+                display: flex;
+                justify-content: space-evenly;
+                align-items: stretch;">
+                  <input class="custom-control-input" type="radio" id="customRadio1" name="status" value = "Ativo">
+                  <label for="customRadio1" class="custom-control-label">Ativo</label>
+                  <input class="custom-control-input" type="radio" id="customRadio2" name="status" value = "Inativo">
+                  <label for="customRadio2" class="custom-control-label">Inativo</label>
+                  <input class="custom-control-input custom-control-input-danger" type="radio" id="customRadio4" name="Comparativo"value = "Alerta">
+                  <label for="customRadio4" class="custom-control-label">Alerta - divergente</label>
+                  <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="radio" id="customRadio5" name="Comparativo" value = "Correto">
+                  <label for="customRadio5" class="custom-control-label">Estoque Correto</label>
+                  <input class="custom-control-input" type="radio" id="customRadio3" disabled="">
+                  <label for="customRadio3" class="custom-control-label">Clássico</label>
+                  <input class="custom-control-input" type="radio" id="customRadio3" disabled="">
+                  <label for="customRadio3" class="custom-control-label">Premium</label>
+                  
+                  <button type="submit" class="btn btn-info">Consultar</button>
+                </div>
+            </form>
+            <form role="form" action="/admin/estoque/b2wstilo" id="Filter">
               <div class="input-group" id="Search">
                 <input type="text" name="search" class="form-control" placeholder="Pesquisar..." value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                     <span class="input-group-btn">
@@ -86,7 +111,7 @@
                         <?php }else{ ?><small class="label pull-right bg-orange">Recusado</small><?php } ?></td> 
                       <td><?php echo htmlspecialchars( $value1["estoque"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                       <td><?php echo htmlspecialchars( $value1["estoque_aton"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>   
-                      <td id="v"><?php if( $value1["Comparativo"]=='Estoque correto!' ){ ?><small class="label pull-right bg-green">Estoque correto</small>
+                      <td id="v"><?php if( $value1["Comparativo"]=='Estoque correto' ){ ?><small class="label pull-right bg-green">Estoque correto</small>
                         <?php }else{ ?><small class="label pull-right bg-red">Alerta - divergente</small><?php } ?></td>
                     </tr>
                     <?php } ?>

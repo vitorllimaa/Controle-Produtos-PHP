@@ -525,13 +525,18 @@ $app->get("/admin/estoque/b2wstilo", function(){
 	]);
 	$pg = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
-	$pages = estoque::estoqueB2wstilo($pg, $search);
+	$status = (isset($_GET["status"])) ? $_GET["status"] : '';
+	$Comparativo = (isset($_GET["Comparativo"])) ? $_GET["Comparativo"] : '';
+	
+	$pages = estoque::estoqueB2wstilo($pg, $search, $_GET);
     $paginas = [];
 	for($i=1; $i<$pages['pages']; $i++){
 		array_push($paginas,  [
 			'link'=>'/admin/estoque/b2wstilo?'.http_build_query([
 				'page'=>$i,
-				'search'=>$search
+				'search'=>$search,
+				'status'=>$status,
+				'Comparativo'=>$Comparativo
 			]),
 			'text'=>$i
 		]);
